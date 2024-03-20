@@ -1,0 +1,200 @@
+/* profile.component.css */
+.container {
+    display: flex;
+    height: 100vh; /* Ensure the container fills the entire viewport height */
+  }
+  
+  .sidebar {
+    width: 200px;
+    background-color: #700;
+    height: 100vh; 
+  }
+  
+  .sidebar ul {
+    color: aliceblue;
+    list-style-type: none;
+    padding: 10;
+    padding-top: 20px;
+    margin: 10; /* Remove default margin */
+  }
+  
+  .sidebar li {
+    cursor: pointer;
+    padding: 10px;
+  }
+  
+  
+  .sidebar li:hover {
+    color: #700;
+    background-color: #ffffff;
+  }
+  
+ /* profile.component.css */
+
+ .main-content {
+  padding: 20px;
+}
+
+div[ngSwitch] {
+  margin-bottom: 20px;
+}
+
+.field-container {
+  display: flex;
+  align-items: center;
+}
+
+.field-container > * {
+  margin-right: 10px;
+}
+
+span {
+  font-weight: bold;
+  width: 150px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="date"],
+select,
+textarea {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #856767;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.edit-buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  background-color: rgba(143, 107, 107, 0);
+  color: 700;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 110px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  margin-left: 16px;
+}
+
+
+
+/* You might need to adjust styles further based on your design requirements */
+
+  
+
+/* -------------------------------------------------------------------------------- */
+
+.campaign-form {
+  font-weight: bold;
+  height: 900px;
+ width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #700;
+}
+
+.campaign-form h2 {
+  margin-bottom: 20px;
+}
+
+.campaign-form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.campaign-form input[type="text"],
+.campaign-form input[type="email"],
+
+.campaign-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.campaign-form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.campaign-form button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  margin-right: 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(255, 255, 255);
+  color: #700;
+  cursor: pointer;
+}
+
+.campaign-form button:hover {
+  background-color: rgb(196, 156, 156);
+}
+
+.campaign-form .btn-cancel {
+  background-color: #ccc;
+  color: #333;
+}
+
+.campaign-form .btn-cancel:hover {
+  background-color: #999;
+}
+.campaign-form #goalAmount {
+  width: 200px;
+  height: 30px; /* Adjust the width as needed */
+  margin-bottom: 10px;
+}
+.campaign-form #beneficiaryAge {
+  width: 200px;
+  height: 30px; 
+}
+
+.campaign-form #beneficiaryMobile {
+  width: 200px; 
+  height: 30px;/* Adjust the width as needed */
+}
+
+  /* ------------------------------------------------------------- */
+  
+  .campaign-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .campaign-card {
+    max-width: 400px; /* Set maximum width */
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px; /* Add margin between cards */
+    box-sizing: border-box;
+    overflow: hidden; /* Hide overflow content */
+  }
+  
+  .campaign-card h3 {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .campaign-card p {
+    margin: 0;
+    margin-bottom: 5px;
+  }
+  
+  
+  

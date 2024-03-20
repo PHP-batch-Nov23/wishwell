@@ -1,0 +1,359 @@
+<!-- profile.component.html -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<!-- profile.component.html -->
+<div class="container">
+  <div class="sidebar">
+    <ul>
+      
+      <li (click)="showProfile()">Profile</li>
+      <li (click)="showDonations()">Donations</li>
+      <li (click)="showBalance()">Balance</li>
+      <li (click)="CreateCampaign()">Create Campaign</li>
+      <li (click)="showMyCampaigns()">My Campaigns</li>
+      
+    </ul>
+  </div>
+  <div class="main-content">
+    <div [ngSwitch]="selectedOption">
+      <div *ngSwitchCase="'profile'">
+      <!-- Profile details template -->
+      <h2>Profile Details</h2>
+
+      <!-- Name field with edit option -->
+      <div *ngIf="!editMode.name">
+        <span>Name: {{ userProfile.name }}</span>
+        <button (click)="toggleEditMode('name')">
+          <i class="fas fa-pencil-alt"></i>
+        </button>
+      </div>
+      <div *ngIf="editMode.name">
+        <input type="text" [(ngModel)]="userProfile.name">
+        <button (click)="saveChanges('name')">Save</button>
+        <button (click)="cancelEdit('name')">Cancel</button>
+      </div>
+
+      <!-- Email field with edit option -->
+      <div *ngIf="!editMode.email">
+        <span>Email: {{ userProfile.email }}</span>
+        <button (click)="toggleEditMode('name')">
+          <i class="fas fa-pencil-alt"></i>
+        </button>
+      </div>
+      <div *ngIf="editMode.email">
+        <input type="email" [(ngModel)]="userProfile.email">
+        <button (click)="saveChanges('email')">Save</button>
+        <button (click)="cancelEdit('email')">Cancel</button>
+      </div>
+
+      <!-- Date of Birth field with edit option -->
+      <div *ngIf="!editMode.dob">
+        <span>Date of Birth: {{ userProfile.dob }}</span>
+        <button (click)="toggleEditMode('name')">
+          <i class="fas fa-pencil-alt"></i>
+        </button>
+      </div>
+      <div *ngIf="editMode.dob">
+        <input type="date" [(ngModel)]="userProfile.dob">
+        <button (click)="saveChanges('dob')">Save</button>
+        <button (click)="cancelEdit('dob')">Cancel</button>
+      </div>
+
+      <!-- Sex field with edit option -->
+      <div *ngIf="!editMode.sex">
+        <span>Sex: {{ userProfile.sex }}</span>
+        <button (click)="toggleEditMode('name')">
+          <i class="fas fa-pencil-alt"></i>
+        </button>
+      </div>
+      <div *ngIf="editMode.sex">
+        <select [(ngModel)]="userProfile.sex">
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+        <button (click)="saveChanges('sex')">Save</button>
+        <button (click)="cancelEdit('sex')">Cancel</button>
+      </div>
+
+      <!-- Age field with edit option -->
+      <div *ngIf="!editMode.age">
+        <span>Age: {{ userProfile.age }}</span>
+        <button (click)="toggleEditMode('name')">
+          <i class="fas fa-pencil-alt"></i>
+        </button>
+      </div>
+      <div *ngIf="editMode.age">
+        <input type="number" [(ngModel)]="userProfile.age">
+        <button (click)="saveChanges('age')">Save</button>
+        <button (click)="cancelEdit('age')">Cancel</button>
+      </div>
+
+      <!-- PAN field with edit option -->
+      <div *ngIf="!editMode.pan">
+        <span>PAN: {{ userProfile.pan }}</span>
+        <button (click)="toggleEditMode('name')">
+          <i class="fas fa-pencil-alt"></i>
+        </button>
+      </div>
+      <div *ngIf="editMode.pan">
+        <input type="text" [(ngModel)]="userProfile.pan">
+        <button (click)="saveChanges('pan')">Save</button>
+        <button (click)="cancelEdit('pan')">Cancel</button>
+      </div>
+
+      <!-- Balance field with edit option -->
+      <div *ngIf="!editMode.balance">
+        <span>Balance: {{ userProfile.balance }}</span>
+        <button (click)="toggleEditMode('name')">
+          <i class="fas fa-pencil-alt"></i>
+        </button>
+      </div>
+     
+
+      <!-- Address field with edit option -->
+      <div *ngIf="!editMode.address">
+        <span>Address: {{ userProfile.address }}</span>
+        <button (click)="toggleEditMode('name')">
+          <i class="fas fa-pencil-alt"></i>
+        </button>
+      </div>
+      <div *ngIf="editMode.address">
+        <input type="text" [(ngModel)]="userProfile.address">
+        <button (click)="saveChanges('address')">Save</button>
+        <button (click)="cancelEdit('address')">Cancel</button>
+      </div>
+
+      <!-- City field with edit option -->
+      <div *ngIf="!editMode.city">
+        <span>City: {{ userProfile.city }}</span>
+        <button (click)="toggleEditMode('name')">
+          <i class="fas fa-pencil-alt"></i>
+        </button>
+      </div>
+      <div *ngIf="editMode.city">
+        <input type="text" [(ngModel)]="userProfile.city">
+        <button (click)="saveChanges('city')">Save</button>
+        <button (click)="cancelEdit('city')">Cancel</button>
+      </div>
+
+      <!-- Role field with edit option -->
+      <div *ngIf="!editMode.role">
+        <span>Role: {{ userProfile.role }}</span>
+        <button (click)="toggleEditMode('name')">
+          <i class="fas fa-pencil-alt"></i>
+        </button>
+      </div>
+      <div *ngIf="editMode.role">
+        <select [(ngModel)]="userProfile.role">
+          <option value="Donor">Donor</option>
+          <option value="Fundraiser">Fundraiser</option>
+        </select>
+        <button (click)="saveChanges('role')">Save</button>
+        <button (click)="cancelEdit('role')">Cancel</button>
+      </div>
+
+      <!-- Description field with edit option -->
+      <div *ngIf="!editMode.description">
+        <span>Description: {{ userProfile.description }}</span>
+        <button (click)="toggleEditMode('name')">
+          <i class="fas fa-pencil-alt"></i>
+        </button>
+      </div>
+      <div *ngIf="editMode.description">
+        <textarea [(ngModel)]="userProfile.description"></textarea>
+        <button (click)="saveChanges('description')">Save</button>
+        <button (click)="cancelEdit('description')">Cancel</button>
+      </div>
+
+      <!-- Created At field with edit option -->
+      <div *ngIf="!editMode.created_at">
+        <span>Created At: {{ userProfile.created_at }}</span>
+        <button (click)="toggleEditMode('name')">
+          <i class="fas fa-pencil-alt"></i>
+        </button>
+      </div>
+      <div *ngIf="editMode.created_at">
+        <input type="date" [(ngModel)]="userProfile.created_at">
+        <button (click)="saveChanges('created_at')">Save</button>
+        <button (click)="cancelEdit('created_at')">Cancel</button>
+      </div>
+
+
+      <!-- -------------------------------------------------------------------------- -->
+
+      <div *ngSwitchCase="'donations'">
+        <!-- Donations template -->
+        
+        <!-- You can include the donations details here -->
+        <h2>Donations</h2>
+        <!-- Example donations details -->
+      
+        <ul>
+          <li *ngFor="let donation of donations">{{ donation }}</li>
+        </ul>
+      </div>
+      <div *ngSwitchCase="'balance'">
+        <!-- Balance template -->
+        <!-- You can include the balance details here -->
+        <h2>Balance</h2>
+        <!-- Example balance details -->
+        <p>Total Balance: {{ totalBalance }}</p>
+      </div>
+    </div>
+    
+
+
+<!-- -------------------------------------------------------------------------- -->
+<div *ngSwitchCase="'CreateCampaign'" class="campaign-form">
+  <!-- Create Campaign form -->
+  <h2>Create Campaign</h2>
+  <form (ngSubmit)="createCampaign()">
+    <!-- Cause field -->
+    <div class="form-group">
+      <label for="cause">Cause:</label>
+      <input type="text" id="cause" name="cause" [(ngModel)]="campaignData.cause" required>
+    </div>
+
+    <!-- Title field -->
+    <div class="form-group">
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" [(ngModel)]="campaignData.title" required>
+    </div>
+
+    <!-- Description field -->
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea id="description" name="description" [(ngModel)]="campaignData.description" required></textarea>
+    </div>
+
+    <!-- Goal Amount field -->
+    <div class="form-group">
+      <label for="goalAmount">Goal Amount:</label>
+      <input type="number" id="goalAmount" name="goalAmount" [(ngModel)]="campaignData.goalAmount" required>
+    </div>
+
+    <!-- Start Date field -->
+    <div class="form-group">
+      <label for="startDate">Start Date:</label>
+      <input type="date" id="startDate" name="startDate" [(ngModel)]="campaignData.startDate" required>
+    </div>
+
+    <!-- End Date field -->
+    <div class="form-group">
+      <label for="endDate">End Date:</label>
+      <input type="date" id="endDate" name="endDate" [(ngModel)]="campaignData.endDate" required>
+    </div>
+
+    <!-- Beneficiary Name field -->
+    <div class="form-group">
+      <label for="beneficiaryName">Beneficiary Name:</label>
+      <input type="text" id="beneficiaryName" name="beneficiaryName" [(ngModel)]="campaignData.beneficiaryName" required>
+    </div>
+
+    <!-- Beneficiary Age field -->
+    <div class="form-group">
+      <label for="beneficiaryAge">Beneficiary Age:</label>
+      <input type="number" id="beneficiaryAge" name="beneficiaryAge" [(ngModel)]="campaignData.beneficiaryAge" required>
+    </div>
+
+    <!-- Beneficiary City field -->
+    <div class="form-group">
+      <label for="beneficiaryCity">Beneficiary City:</label>
+      <input type="text" id="beneficiaryCity" name="beneficiaryCity" [(ngModel)]="campaignData.beneficiaryCity" required>
+    </div>
+
+    <!-- Beneficiary Mobile field -->
+    <div class="form-group">
+      <label for="beneficiaryMobile">Beneficiary Mobile:</label>
+      <input type="tel" id="beneficiaryMobile" name="beneficiaryMobile" [(ngModel)]="campaignData.beneficiaryMobile" required>
+    </div>
+
+    <!-- Buttons to submit or cancel -->
+    <button type="submit">Start Campaign</button>
+    <button type="button" (click)="cancelCreateCampaign()">Cancel</button>
+  </form>
+</div>
+
+<!-- ------------------------------------------------------------------ -->
+
+<div *ngSwitchCase="'myCampaigns'">
+  <h2>My Campaigns</h2>
+  <div class="campaign-cards">
+    <!-- Campaign cards will be rendered here -->
+    <div class="campaign-card">
+      <h3>Campaign Title</h3>
+      <p>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <p>Goal Amount: $1000</p>
+      <p>Start Date: 2024-03-20</p>
+      <p>End Date: 2024-04-20</p>
+      <button>Edit</button>
+      <button>Delete</button>
+    </div>
+
+    
+    <!-- Campaign cards will be rendered here -->
+    <div class="campaign-card">
+      <h3>Campaign Title</h3>
+      <p>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <p>Goal Amount: $1000</p>
+      <p>Start Date: 2024-03-20</p>
+      <p>End Date: 2024-04-20</p>
+      <button>Edit</button>
+      <button>Delete</button>
+    </div>
+    
+    <!-- Campaign cards will be rendered here -->
+    <div class="campaign-card">
+      <h3>Campaign Title</h3>
+      <p>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <p>Goal Amount: $1000</p>
+      <p>Start Date: 2024-03-20</p>
+      <p>End Date: 2024-04-20</p>
+      <button>Edit</button>
+      <button>Delete</button>
+    </div>
+    
+    <!-- Campaign cards will be rendered here -->
+    <div class="campaign-card">
+      <h3>Campaign Title</h3>
+      <p>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <p>Goal Amount: $1000</p>
+      <p>Start Date: 2024-03-20</p>
+      <p>End Date: 2024-04-20</p>
+      <button>Edit</button>
+      <button>Delete</button>
+    </div>
+    
+    <!-- Campaign cards will be rendered here -->
+    <div class="campaign-card">
+      <h3>Campaign Title</h3>
+      <p>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <p>Goal Amount: $1000</p>
+      <p>Start Date: 2024-03-20</p>
+      <p>End Date: 2024-04-20</p>
+      <button>Edit</button>
+      <button>Delete</button>
+    </div>
+    
+    <!-- Campaign cards will be rendered here -->
+    <div class="campaign-card">
+      <h3>Campaign Title</h3>
+      <p>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <p>Goal Amount: $1000</p>
+      <p>Start Date: 2024-03-20</p>
+      <p>End Date: 2024-04-20</p>
+      <button>Edit</button>
+      <button>Delete</button>
+    </div>
+    
+
+    
+    <!-- Repeat this card structure for each campaign -->
+  </div>
+</div>
+
+
+  </div>
+  </div>
+  

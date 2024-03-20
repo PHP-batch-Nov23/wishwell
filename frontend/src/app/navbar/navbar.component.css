@@ -1,0 +1,40 @@
+header {
+    background-color: #fffbfb;
+    color: #a47676f4;
+    padding: 10px;
+    border-color: black;
+  }
+  
+  nav {
+    display: flex;
+    
+    align-items: center;
+  }
+  
+  .logo a {
+    color: #a71818f4;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+  }
+  
+  .nav-links li {
+    margin-right: 20px;
+  }
+  
+  .nav-links li a {
+    font-size: 20px;
+    font-weight: bolder;
+    color: #a71818f4;
+    text-decoration: none;
+  }
+  
+  .nav-links li a:hover {
+    text-decoration: underline;
+  }
+  

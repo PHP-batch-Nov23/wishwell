@@ -1,0 +1,66 @@
+/* login.component.css */
+
+.login-container {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #fff; /* White color */
+}
+
+.login-subtitle {
+    font-size: 0.875rem;
+    color: #666;
+}
+
+.login-form {
+    background-color: #900;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-size: 0.875rem;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    color: #fff; /* White color */
+}
+
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 45px; /* Adjust border-radius as per your preference */
+    background-color: #600;
+    color: #fff; /* White color */
+}
+
+.login-form button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #fff; /* White color */
+    color: #900; /* Red color */
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.login-form button:hover {
+    background-color: #ccc; /* Light gray color */
+}
