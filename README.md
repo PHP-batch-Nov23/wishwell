@@ -1,2 +1,2 @@
 # wishwell
-a crowd funding app
+a crowd funding webapp
