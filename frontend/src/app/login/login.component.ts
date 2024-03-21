@@ -16,12 +16,18 @@ export class LoginComponent {
 
   login() {
 
-    const logedin = this.serviceBackend.loginPost({
-      email:"g@gmail.com",
-      password:"12345"
-    })
-    
-    console.log(logedin)
+    const loginData = {
+      email: this.email,
+      password: this.password
+    };
+
+    this.serviceBackend.loginPost(loginData)
+      .then(response => {
+        console.log('Login successful:', response);
+      })
+      .catch(error => {
+        console.error('Login failed:', error);
+      });
 
   }
 }

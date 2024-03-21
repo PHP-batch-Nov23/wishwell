@@ -127,8 +127,6 @@ class AllUserController extends Controller
         
             if (Auth::attempt($credentials)) {
                 $user = Auth::user();
-
-               
                 
                 // Create token payload
                 $tokenPayload = [
@@ -152,9 +150,9 @@ class AllUserController extends Controller
             }
         
             return response()->json([
-                "message" => "failure",
-                "credentials" => $credentials
-            ]);
+                "message" => "BAD CREDENTIALS",
+                "code" => "401"
+            ],401);
     }
 
 
