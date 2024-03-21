@@ -16,22 +16,34 @@ export class RegisterComponent {
   sex: string = '';
   pan: string = '';
   address: string = '';
-  city: string = 'NA';
+  city: string = '';
   password: string = '';
 
   constructor(private serviceBackend : ServiceBackend) {  }
 
   register() {
 
-    const data = this.serviceBackend.registerPost({
-      "name": "Donor",
-      "email": "agdaa56565@example.com",
-      "password": "password123",
-      "role": "fundraiser",
-      "sex": "male",
-      "dob": "1990-01-01",
-     });
-     console.log(data)
+   
+    const data = {
+      name: this.name,
+      email: this.email,
+      password: this.password,
+      role: this.selectedRole,
+      sex: this.sex,
+      dob: this.dob,
+      pan: this.pan,
+      address: this.address,
+      city: this.city
+    };
+
+    // Assuming registerPost returns a Promise, you may want to handle the response using then/catch
+    this.serviceBackend.registerPost(data)
+      .then(response => {
+        console.log('Registration successful:', response);
+      })
+      .catch(error => {
+        console.error('Registration failed:', error);
+      });
 
 
 

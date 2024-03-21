@@ -1,6 +1,7 @@
 // login.component.ts
 
 import { Component } from '@angular/core';
+import { ServiceBackend } from '../service-backend.service';
 
 @Component({
   selector: 'app-login',
@@ -11,12 +12,16 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
 
-  constructor() { }
+  constructor(private serviceBackend : ServiceBackend) {  }
 
   login() {
-    // Your login logic goes here
-    console.log('Login form submitted');
-    console.log('Email:', this.email);
-    console.log('Password:', this.password);
+
+    const logedin = this.serviceBackend.loginPost({
+      email:"g@gmail.com",
+      password:"12345"
+    })
+    
+    console.log(logedin)
+
   }
 }

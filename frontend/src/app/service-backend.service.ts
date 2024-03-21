@@ -17,6 +17,10 @@ export class ServiceBackend {
     return axios.post(this.baseUrl+'register', data);
   }
 
+  loginPost( data: any ) {
+    return axios.post(this.baseUrl+'login', data);
+  }
+
   // Other HTTP methods as needed
 }
 
