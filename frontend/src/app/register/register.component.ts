@@ -1,6 +1,7 @@
 // register.component.ts
 
 import { Component } from '@angular/core';
+import { ServiceBackend } from '../service-backend.service';
 
 @Component({
   selector: 'app-register',
@@ -15,22 +16,24 @@ export class RegisterComponent {
   sex: string = '';
   pan: string = '';
   address: string = '';
-  city: string = '';
+  city: string = 'NA';
   password: string = '';
 
-  constructor() { }
+  constructor(private serviceBackend : ServiceBackend) {  }
 
   register() {
-    // Your registration logic goes here
-    console.log('Registration form submitted');
-    console.log('Selected Role:', this.selectedRole);
-    console.log('Name:', this.name);
-    console.log('Email:', this.email);
-    console.log('Date of Birth:', this.dob);
-    console.log('Sex:', this.sex);
-    console.log('PAN:', this.pan);
-    console.log('Address:', this.address);
-    console.log('City:', this.city);
-    console.log('Password:', this.password);
+
+    const data = this.serviceBackend.registerPost({
+      "name": "Donor",
+      "email": "agdaa56565@example.com",
+      "password": "password123",
+      "role": "fundraiser",
+      "sex": "male",
+      "dob": "1990-01-01",
+     });
+     console.log(data)
+
+
+
   }
 }
