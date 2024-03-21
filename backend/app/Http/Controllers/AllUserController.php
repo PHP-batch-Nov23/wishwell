@@ -38,7 +38,7 @@ class AllUserController extends Controller
 
         $existingUser = AllUser::where('email', $request->email)->first();
         if ($existingUser) {
-            return response()->json(['error' => 'The email has already been taken.'], 422);
+            return response()->json(['error' => 'The email has already been taken  .'], 422);
         }
 
     
