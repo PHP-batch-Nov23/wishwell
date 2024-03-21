@@ -7,21 +7,24 @@ import { Component } from '@angular/core';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent {
-  selectedOption: string = 'profile'; // Default selected option
+
+  selectedOption: string = 'profile'; 
+  
   userProfile: any = { 
     name: 'John Doe',
     email: 'john@example.com',
     dob: '1990-01-01',
     sex: 'Male',
     age: 30,
+    cause:"xyz",
     pan: 'ABCPD1234F',
     balance: 1000,
     address: '123 Main St',
     city: 'Anytown',
     role: 'Donor',
     description: 'Lorem ipsum',
-    created_at: '2022-01-01'
-  }; // Example profile data
+  }; 
+  
   editMode: any = {}; // Object to track edit mode for each field
   donations: any[] = ['Donation 1', 'Donation 2', 'Donation 3']; // Example donations data
   totalBalance: number = 1000; // Example total balance

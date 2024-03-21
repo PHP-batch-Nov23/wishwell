@@ -9,8 +9,6 @@ use App\Models\Campaign;
 class CampaignController extends Controller
 {
 
-    
-     
         public function index(Request $request)
         {
             $campaigns = Campaign::all();

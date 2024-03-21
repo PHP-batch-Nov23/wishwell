@@ -21,6 +21,10 @@ export class ServiceBackend {
     return axios.post(this.baseUrl+'login', data);
   }
 
+  getUserData(){
+    return axios.get(this.baseUrl+'login');
+  }
+
   // Other HTTP methods as needed
 }
 

@@ -84,9 +84,9 @@ class AllUserController extends Controller
 
     }
       
-    public function show($id)
+    public function show(Request $request)
     {
-        $user = AllUser::findOrFail($id);
+        $user = AllUser::findOrFail($request->userInfo['id']);
         return response()->json($user);
     }
 
@@ -134,14 +134,11 @@ class AllUserController extends Controller
                     'role' => $user->role,
                     'id' => $user->id
                 ];
-        
                 // Encrypt the token payload
                 $encryptedPayload = Crypt::encrypt(json_encode($tokenPayload));
                 
-
-        
                 // Set encrypted payload in cookie
-                $cookie = cookie('token', $encryptedPayload, $minutes = 60, $path = '/', $domain = 'http://localhost:4200', $secure = false, $httpOnly = false);
+                $cookie = cookie('token', $encryptedPayload,60, null, null, false, false);
         
                 return response()->json([
                     "message" => "success",
