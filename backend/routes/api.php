@@ -38,6 +38,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::get('/getcampaign',[App\Http\Controllers\CampaignController::class, 'index']);
     Route::post('/campaign',[App\Http\Controllers\CampaignController::class, 'store']);
     Route::post('/campaign/update',[App\Http\Controllers\CampaignController::class, 'update']);
+    Route::post('/campaign/donate',[App\Http\Controllers\CampaignController::class, 'donate']);
+
 
 
 

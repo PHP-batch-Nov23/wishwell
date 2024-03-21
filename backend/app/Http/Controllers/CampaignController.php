@@ -113,9 +113,6 @@ class CampaignController extends Controller
                 'beneficiary_mobile' => 'required|string|max:255',
             ]);
 
-            // Find the campaign by ID
-      
-
             // Exclude fields that should not be updated
             $data = $request->except(['user_id', 'start_date', 'status']);
 
@@ -129,6 +126,44 @@ class CampaignController extends Controller
                 "request"=> $request->userInfo['id']
                 
             ],201);
+        }
+
+        public function donate(Request $request){
+
+                   // Validate the donation request
+        $request->validate([
+            'donor_id' => 'required|exists:users,id',
+            'campaign_id' => 'required|exists:campaigns,id',
+            'amount' => 'required|numeric|min:0',
+        ]);
+
+        // Get user and campaign
+        $user = User::findOrFail($request->donor_id);
+        $campaign = Campaign::findOrFail($request->campaign_id);
+
+        // Validate user's balance
+        if ($user->balance < $request->amount) {
+            return response()->json(['error' => 'Insufficient balance'], 400);
+        }
+
+        // Update user's balance
+        $user->balance -= $request->amount;
+        $user->save();
+
+        // Update campaign's current amount
+        $campaign->current_amount += $request->amount;
+        $campaign->save();
+
+        // Create donation record
+        $donation = new Donation();
+        $donation->user_id = $user->id;
+        $donation->campaign_id = $campaign->id;
+        $donation->amount = $request->amount;
+        $donation->transaction_date = Carbon::now(); // Set transaction date to current date
+        $donation->save();
+
+        return response()->json(['message' => 'Donation successful'], 200);
+
         }
     
         public function destroy($id)
