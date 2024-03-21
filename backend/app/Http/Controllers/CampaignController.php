@@ -8,6 +8,8 @@ use App\Models\Campaign;
 
 class CampaignController extends Controller
 {
+
+    
      
         public function index(Request $request)
         {
@@ -19,6 +21,8 @@ class CampaignController extends Controller
         {
             //print_r ($request);
             //return response()->json($request);
+
+            
 
             $requiredFields = [
                 'user_id',
@@ -44,6 +48,7 @@ class CampaignController extends Controller
                 }
             }
 
+    
 
             $request->validate([
                 'user_id' => 'required|exists:allusers,id',
@@ -75,7 +80,7 @@ class CampaignController extends Controller
 
                 "message" => "campain createdSuccess",
                 "userData"=> $campaign,
-                "request"=> $request->userInfo['id']
+            
                 
             ],201);
 

@@ -11,9 +11,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     
     //Route::resource('/allusers', \App\Http\Controllers\AllUserController::class);//->middleware(\App\Http\Middleware\ValidateToken::class);
 
-    Route::get('/get',[App\Http\Controllers\AllUserController::class, 'index']);
     Route::post('/login',[App\Http\Controllers\AllUserController::class, 'login']);
     Route::post('/register',[App\Http\Controllers\AllUserController::class, 'store']);
+
+
+    Route::get('/getUsers',[App\Http\Controllers\AllUserController::class, 'index']);
     // Route::put('/update/{id}',[App\Http\Controllers\AllUserController::class, 'update']);
     // Route::delete('/delete/{id}',[App\Http\Controllers\AllUserController::class, 'destroy']);
 
@@ -31,7 +33,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 
-    Route::get('/campaign',[App\Http\Controllers\CampaignController::class, 'index']);
+    Route::get('/getcampaign',[App\Http\Controllers\CampaignController::class, 'index']);
     Route::post('/campaign',[App\Http\Controllers\CampaignController::class, 'store']);
     Route::post('/campaign/update',[App\Http\Controllers\CampaignController::class, 'update']);
 

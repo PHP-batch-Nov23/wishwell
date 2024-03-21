@@ -86,14 +86,14 @@ class AllUserController extends Controller
       
     public function show($id)
     {
-        $user = User::findOrFail($id);
+        $user = AllUser::findOrFail($id);
         return response()->json($user);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         
-     $user = User::findOrFail($id);
+     $user = AllUser::findOrFail($id);
      $request->validate([
         'name' => 'required|max:255',
         'email' => 'required|email|unique:allusers,email,' . $user->id,
@@ -113,7 +113,7 @@ class AllUserController extends Controller
 
     public function destroy($id)
     {
-     $user = User::findOrFail($id);
+     $user = AllUser::findOrFail($id);
      $user->delete();
      return response()->json($user);
     }
@@ -141,7 +141,7 @@ class AllUserController extends Controller
 
         
                 // Set encrypted payload in cookie
-                $cookie = cookie('token', $encryptedPayload);
+                $cookie = cookie('token', $encryptedPayload, $minutes = 60, $path = '/', $domain = 'http://localhost:4200', $secure = false, $httpOnly = false);
         
                 return response()->json([
                     "message" => "success",
