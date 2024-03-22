@@ -8,7 +8,8 @@ import { AuthService } from '../auth.service';
 export class NavbarComponent {
 
   constructor(private authService: AuthService) {}
+  isLoggedIn: boolean = true;
 
-  isLoggedIn: boolean = this.authService.isLoggedIn();
+  // isLoggedIn: boolean = this.authService.isLoggedIn();
 
 }
