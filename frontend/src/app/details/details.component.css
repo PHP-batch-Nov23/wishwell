@@ -1,46 +1,84 @@
-/* campaign-details.component.css */
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  .campaign-header {
-    margin-bottom: 20px;
-  }
-  
-  .campaign-header h1 {
-    font-size: 24px;
-    margin: 0;
-  }
-  
-  .campaign-header p {
-    margin: 10px 0;
-  }
-  
-  .progress-bar {
-    height: 20px;
-    background-color: #f0f0f0;
-    border-radius: 5px;
-    overflow: hidden;
-  }
-  
-  .progress {
-    height: 100%;
-    background-color: #007bff;
-  }
-  
-  .details {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .raised, .goal {
-    flex: 1;
-  }
-  
-  .raised p, .goal p {
-    margin: 5px 0;
-    font-size: 16px;
-  }
-  
+/* General styles */
+
+.campaign-details {
+  display: flex;
+}
+
+.left-half {
+  width: 90%;
+  flex: 0 0 50%;
+  padding: 0 20px;
+  margin-left: 10%;
+  margin-top: 10%;
+}
+
+.right-half {
+  flex: 0 0 50%;
+  padding: 0 20px;
+  margin-right: 30px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+ 
+}
+
+.box {
+  background-color: #a71818f4;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 2px solid #fff; /* Add border */
+}
+
+/* Campaign Description and Fundraiser Details styles */
+
+.campaign-description h2,
+.fundraiser-details h2 {
+  margin-top: 0;
+  color: #700; /* Change color as needed */
+}
+
+.campaign-description p,
+.fundraiser-details p {
+  margin: 5px 0;
+  font-size: 16px;
+  color: #700; /* Change color as needed */
+}
+
+/* Donation Form styles */
+
+.donation-form {
+  margin-top: 20px;
+}
+
+.donation-form h2 {
+  margin-top: 0;
+  color: #700; /* Change color as needed */
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  color: #700; /* Change color as needed */
+}
+
+input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #700;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #600; /* Darken color on hover */
+}
