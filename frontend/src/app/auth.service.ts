@@ -6,7 +6,7 @@ import { PLATFORM_ID, Inject } from '@angular/core';
   providedIn: 'root'
 })
 export class AuthService {
-    
+    //test comment
   private readonly AUTH_TOKEN_KEY = 'authToken';
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
