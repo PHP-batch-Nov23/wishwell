@@ -23,11 +23,12 @@ class CheckUserRole
 
                 $cookieValue = $request->cookie('token');
 
-                if (!$cookieValue) {
+                if (!$request->token) {
                     throw new Exception('Token not available');
                 }
 
-                $decryptedPayload = json_decode(Crypt::decrypt($cookieValue), true);
+                $decryptedPayload = json_decode(Crypt::decrypt($request->token), true);
+                
                 
                 $userRole = $decryptedPayload['role'];
 

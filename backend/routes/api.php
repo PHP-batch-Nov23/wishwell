@@ -42,12 +42,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 
-
-
     Route::get('/dashboard',[App\Http\Controllers\AllUserController::class, 'Dashboard'])->middleware('checkUserRole');
-
-
-
 
 
 

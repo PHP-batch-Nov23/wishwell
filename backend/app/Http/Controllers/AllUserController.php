@@ -143,6 +143,7 @@ class AllUserController extends Controller
                 return response()->json([
                     "message" => "success",
                     "user" => $user,
+                    "token" => $encryptedPayload
                 ])->cookie($cookie);
             }
         
@@ -160,8 +161,11 @@ class AllUserController extends Controller
         $user = AllUser::find($request->userInfo['id']);
 
         if (!$user) {
-            throw new Exception('User not found');
-        }        
+            return response()->json([
+                "message" => "Faliure",
+                "message"=> "user Not Found",
+            ],401);
+        }
 
         return response()->json([
 
