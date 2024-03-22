@@ -1,17 +1,19 @@
 <header>
-    <nav>
-      <div class="logo">
-        <a routerLink="/">WishWell</a>
-      </div>
-      <ul class="nav-links">
-        <li><a routerLink="/contact">Contact Us</a></li>
-      </ul>
-      <ul class="nav-links">
-        <li><a routerLink="/login">login</a></li>
-      </ul>
-      <ul class="nav-links">
-        <li><a routerLink="/register">Sign-up</a></li>
-      </ul>
-    </nav>
-  </header>
-  
+  <nav>
+    <div class="logo">
+      <a routerLink="/">WishWell</a>
+    </div>
+    <ul class="nav-links">
+      <li><a routerLink="/contact">Contact Us</a></li>
+    </ul>
+    <ul class="nav-links" *ngIf="!isLoggedIn">
+      <li><a routerLink="/login">Login</a></li>
+    </ul>
+    <ul class="nav-links" *ngIf="!isLoggedIn">
+      <li><a routerLink="/register">Sign Up</a></li>
+    </ul>
+    <ul class="nav-links" *ngIf="isLoggedIn">
+      <li><a routerLink="/profile">Profile</a></li>
+    </ul>
+  </nav>
+</header>
