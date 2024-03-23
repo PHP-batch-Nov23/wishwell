@@ -13,7 +13,7 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
 
-  constructor(private serviceBackend : ServiceBackend, private authService: AuthService, private router: Router) {  }
+  constructor(private serviceBackend: ServiceBackend, private authService: AuthService, private router: Router) { }
 
   login() {
     const loginData = {
@@ -23,13 +23,15 @@ export class LoginComponent {
 
     this.serviceBackend.loginPost(loginData)
       .then(response => {
-        console.log('Login successful:', response.data.token);
-        if(response?.data?.token){
+        console.log('Login successful:', response.data);
+        if (response?.data?.token) {
+          // If token is received from backend, set it in AuthService
           this.authService.setAuthToken(response.data.token);
           console.log(this.authService.getAuthToken());
+          // Redirect to main page after successful login
           this.router.navigate(['/main']);
         } else {
-          console.log("token error");
+          console.log("Token not received in response");
         }
       })
       .catch(error => {

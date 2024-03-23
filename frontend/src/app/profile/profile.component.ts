@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ServiceBackend } from '../service-backend.service';
 import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -10,13 +10,25 @@ import { Router } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
   selectedOption: string = 'profile';
-  userProfile: any;
+  userProfile: any={};
   editMode: any = {}; // Object to track edit mode for each field
   donations: any[] = ['Donation 1', 'Donation 2', 'Donation 3']; // Example donations data
   totalBalance: number = 1000; // Example total balance
-  campaignData: any;
+  campaignData: any={
+    cause: '',
+    title: '',
+    description: '',
+    goal_amount: null,
+    start_date: null,
+    end_date: null,
+    beneficiary_name: '',
+    beneficiary_age: null,
+    beneficiary_city: '',
+    beneficiary_mobile: ''
+  };
+  userCampaigns:any=[];
 
-  constructor(private router: Router,private serviceBackend: ServiceBackend, private authService: AuthService) {}
+  constructor(private router: Router, private serviceBackend: ServiceBackend, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.showProfile();
@@ -25,6 +37,8 @@ export class ProfileComponent implements OnInit {
   showProfile() {
     this.serviceBackend.getUserProfile()
       .then(userProfile => {
+        console.log(userProfile);
+
         console.log(userProfile.userData);
         this.userProfile = userProfile.userData;
       })
@@ -33,16 +47,25 @@ export class ProfileComponent implements OnInit {
       });
   }
 
+
+  profile(){
+    this.selectedOption = 'profile';
+  }
+
   showDonations() {
     this.selectedOption = 'donations';
   }
 
   showBalance() {
+    this.selectedOption = 'balance';
     this.totalBalance = this.userProfile.balance;
   }
 
   showMyCampaigns() {
     this.selectedOption = 'myCampaigns';
+    this.serviceBackend.getAllCampaignBySameUserId().then(data=>{
+      this.userCampaigns= data.data.campaigns;
+      });
   }
 
   toggleEditMode(field: string) {
@@ -63,9 +86,16 @@ export class ProfileComponent implements OnInit {
     this.selectedOption = 'CreateCampaign';
   }
 
-  createCampaign() {
+  createCampaignEntry() {
     // Add logic to handle form submission and campaign creation
     console.log('Campaign created with data:', this.campaignData);
+
+    let data = this.serviceBackend.createCampaign(this.campaignData).then(response => {
+      console.log('camp creation successful:', response);  
+    });
+    
+
+
     // Reset the form after submission
     this.resetForm();
     // Switch back to the default view after campaign creation
@@ -96,7 +126,6 @@ export class ProfileComponent implements OnInit {
 
   logout() {
     this.authService.logout();
-    this.router.navigate(['/login']); 
-    // Additional logic if needed after logout, e.g., redirect to login page
+    this.router.navigate(['/login']); // Redirect to the login page after logout
   }
 }

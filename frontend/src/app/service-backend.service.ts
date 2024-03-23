@@ -26,8 +26,7 @@ export class ServiceBackend {
     return axios.get(this.baseUrl + 'login');
   }
 
-  getUserProfile() {
-    console.log(this.authService.isLoggedIn());
+  getUserProfile(){
     if (this.authService.isLoggedIn()) {
       const token = this.authService.getAuthToken();
       if (token) {
@@ -53,4 +52,27 @@ export class ServiceBackend {
       return Promise.reject('User not logged in');
     }
   }
+
+  createCampaign(campaignData:any){
+    return axios.post(this.baseUrl + 'campaign',{...campaignData,"token":this.authService.getAuthToken()});
+  }
+
+  getAllCampaignBySameUserId(){
+
+    return axios.post(this.baseUrl + 'getAllCampaignsWithId',{"token":this.authService.getAuthToken()});
+
+  }
+
+  getAllActiveCampaigns(){
+    return axios.get(this.baseUrl + 'getAllActiveCampaigns');
+  }
+
+  getCampaignById(id:string){
+    
+    return axios.get(this.baseUrl + 'details/'+id);
+
+  }
+
+
+
 }

@@ -10,21 +10,18 @@
   <div class="campaigns">
     <!-- List of campaigns -->
     <div class="donation-cards">
-      <div class="donation-card">
-        <h2>Campaign Title 1</h2>
-        <p>Description of Campaign 1</p>
-        <p>Raised: $5000</p>
-        <p>Goal: $10000</p>
-        <button routerLink="/details">Donate Now</button>
+      <div class="donation-card" *ngFor="let campaign of campaigns">
+        <h2>{{ campaign.title }}</h2>
+        <p>{{ campaign.description }}</p>
+        <p>Raised: ${{ campaign.current_amount }}</p>
+        <p>Goal: ${{ campaign.goal_amount }}</p>
+        <!-- Progress bar -->
+
+        <!-- Donate Now button -->
+        <button (click)="goToDetailsPage(campaign.id)">Donate Now</button>
+
       </div>
-      <div class="donation-card">
-        <h2>Campaign Title 2</h2>
-        <p>Description of Campaign 2</p>
-        <p>Raised: $3000</p>
-        <p>Goal: $5000</p>
-        <button>Donate Now</button>
-      </div>
-      <!-- Add more donation cards as needed -->
     </div>
   </div>
+  
 
