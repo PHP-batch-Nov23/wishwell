@@ -9,8 +9,10 @@
       <li (click)="showProfile()">Profile</li>
       <li (click)="showDonations()">Donations</li>
       <li (click)="showBalance()">Balance</li>
-      <li (click)="CreateCampaign()">Create Campaign</li>
-      <li (click)="showMyCampaigns()">My Campaigns</li>
+      <li *ngIf="userProfile.role === 'fundraiser'" (click)="CreateCampaign()">Create Campaign</li>
+      <li *ngIf="userProfile.role === 'fundraiser'" (click)="showMyCampaigns()">My Campaigns</li>
+      <li (click)="logout()">Logout</li>
+
       
     </ul>
   </div>

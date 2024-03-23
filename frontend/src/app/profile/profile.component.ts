@@ -1,37 +1,36 @@
-// profile.component.ts
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ServiceBackend } from '../service-backend.service';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent {
-
-  selectedOption: string = 'profile'; 
-  
-  userProfile: any = { 
-    name: 'John Doe',
-    email: 'john@example.com',
-    dob: '1990-01-01',
-    sex: 'Male',
-    age: 30,
-    cause:"xyz",
-    pan: 'ABCPD1234F',
-    balance: 1000,
-    address: '123 Main St',
-    city: 'Anytown',
-    role: 'Donor',
-    description: 'Lorem ipsum',
-  }; 
-  
+export class ProfileComponent implements OnInit {
+  selectedOption: string = 'profile';
+  userProfile: any;
   editMode: any = {}; // Object to track edit mode for each field
   donations: any[] = ['Donation 1', 'Donation 2', 'Donation 3']; // Example donations data
   totalBalance: number = 1000; // Example total balance
   campaignData: any;
 
+  constructor(private router: Router,private serviceBackend: ServiceBackend, private authService: AuthService) {}
+
+  ngOnInit(): void {
+    this.showProfile();
+  }
+
   showProfile() {
-    this.selectedOption = 'profile';
+    this.serviceBackend.getUserProfile()
+      .then(userProfile => {
+        console.log(userProfile.userData);
+        this.userProfile = userProfile.userData;
+      })
+      .catch(error => {
+        console.error('Error fetching user profile:', error);
+      });
   }
 
   showDonations() {
@@ -39,15 +38,12 @@ export class ProfileComponent {
   }
 
   showBalance() {
-    this.selectedOption = 'balance';
+    this.totalBalance = this.userProfile.balance;
   }
 
   showMyCampaigns() {
     this.selectedOption = 'myCampaigns';
   }
-
- 
-
 
   toggleEditMode(field: string) {
     this.editMode[field] = !this.editMode[field];
@@ -97,6 +93,10 @@ export class ProfileComponent {
       beneficiaryMobile: ''
     };
   }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']); 
+    // Additional logic if needed after logout, e.g., redirect to login page
+  }
 }
-
-

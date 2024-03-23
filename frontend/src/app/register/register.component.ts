@@ -40,6 +40,7 @@ export class RegisterComponent {
     this.serviceBackend.registerPost(data)
       .then(response => {
         console.log('Registration successful:', response);
+        
       })
       .catch(error => {
         console.error('Registration failed:', error);
