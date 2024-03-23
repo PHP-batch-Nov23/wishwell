@@ -8,22 +8,21 @@ import { ServiceBackend } from '../service-backend.service';
 })
 export class DetailsComponent implements OnInit {
   campaignId: string='';
-  campaignData :any ={}; 
+  campaign :any ={}; 
 
   constructor(private route: ActivatedRoute,private serviceBackend :ServiceBackend) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      
+
       this.campaignId = params['id'];
       console.log(this.campaignId);
 
-      this.campaignData = this.serviceBackend.getCampaignById(this.campaignId).then(
+      this.campaign = this.serviceBackend.getCampaignById(this.campaignId).then(
         data=> {
-          this.campaignData = data.data
-          console.log(this.campaignData)
-        }
-        )
+          this.campaign = data.data
+          console.log(this.campaign)
+        })
 
 
       

@@ -2,6 +2,7 @@
 
 import { Component } from '@angular/core';
 import { ServiceBackend } from '../service-backend.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +20,7 @@ export class RegisterComponent {
   city: string = '';
   password: string = '';
 
-  constructor(private serviceBackend : ServiceBackend) {  }
+  constructor(private serviceBackend : ServiceBackend,private router:Router) {  }
 
   register() {
 
@@ -40,7 +41,7 @@ export class RegisterComponent {
     this.serviceBackend.registerPost(data)
       .then(response => {
         console.log('Registration successful:', response);
-        
+        this.router.navigate(['/login']);
       })
       .catch(error => {
         console.error('Registration failed:', error);

@@ -1,34 +1,121 @@
-<div class="campaign-details">
-  <!-- Left Half: Campaign Description and Fundraiser Details -->
-  <div class="left-half">
-    <!-- Description -->
-    <div class="campaign-description">
 
-      <h2>Campaign Description</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec velit sit amet nulla semper lacinia. Integer vitae leo condimentum, posuere magna nec, eleifend libero.</p>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+  }
+  .container {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  p {
+    margin: 0;
+    margin-bottom: 10px;
+  }
+  .campaign-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .left-half {
+    flex: 1;
+    padding-right: 20px;
+  }
+  .right-half {
+    flex: 1;
+    padding-left: 20px;
+  }
+  .campaign-description {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+  .campaign-description h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  .fundraiser-details h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  .donation-form {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  .form-group {
+    margin-bottom: 20px;
+  }
+  .form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  .form-group input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  .form-group button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .form-group button:hover {
+    background-color: #0056b3;
+  }
+</style>
+
+
+<div class="container">
+  <h1>Campaign Details</h1>
+  <div class="campaign-details">
+    <div class="left-half">
+      <div class="campaign-description">
+        <h2>{{ campaign.title }}</h2>
+        <p>{{ campaign.description }}</p>
+        <p>Start Date: {{ campaign.start_date }}</p>
+        <p>End Date: {{ campaign.end_date }}</p>
+      </div>
+      <div class="fundraiser-details">
+        <h2>Fundraiser Details</h2>
+        <p>Cause: {{ campaign.cause }}</p>
+        <p>Beneficiary Name: {{ campaign.beneficiary_name }}</p>
+        <p>Beneficiary Age: {{ campaign.beneficiary_age }}</p>
+        <p>Beneficiary City: {{ campaign.beneficiary_city }}</p>
+        <p>Beneficiary Mobile: {{ campaign.beneficiary_mobile }}</p>
+      </div>
     </div>
-    
-    <!-- Fundraiser Details -->
-    <div class="fundraiser-details">
-      <h2>Fundraiser Details</h2>
-      <p>Name: John Doe</p>
-      <p>Email: johnample.com</p>
-      <p>Address: 123 Main St, Anytown</p>
-    </div>
-  </div>
-  
-  
-  <!-- Right Half: Donation Form -->
-  <div class="right-half">
-    <div class="donation-form">
-      <h2>Make a Donation</h2>
-      <form>
-        <div class="form-group">
-          <label for="donationAmount">Amount:</label>
-          <input type="number" id="donationAmount" name="donationAmount" placeholder="Enter donation amount" required>
-        </div>
-        <button type="submit">Donate</button>
-      </form>
+    <div class="right-half">
+      <div class="donation-form">
+        <h2>Make a Donation</h2>
+        <form>
+          <div class="form-group">
+            <label for="donationAmount">Amount:</label>
+            <input type="number" id="donationAmount" name="donationAmount" placeholder="Enter donation amount" required>
+          </div>
+          <div class="form-group">
+            <button type="submit">Donate</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>
+
+
