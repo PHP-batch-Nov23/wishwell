@@ -95,6 +95,10 @@ export class ServiceBackend {
     return axios.post(this.baseUrl + 'getUserAllDonations',{'token':this.authService.getAuthToken()});
   }
 
+  deleteCampaign(campId:any){
+    return axios.post(this.baseUrl + 'campaign/destroy',{'campId':campId,'token':this.authService.getAuthToken()});
+  }
+
 
 
 }

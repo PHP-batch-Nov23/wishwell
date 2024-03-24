@@ -8,15 +8,19 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { DetailsComponent } from './details/details.component';
 import { ProfileComponent } from './profile/profile.component';
-import { AuthGuard } from './auth.guard'; // Import the guard
+import { AuthGuard } from './auth.guard';
+
+
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'main', component: MainComponent},
-  { path: 'register', component: RegisterComponent },
+  { path: 'register', component: RegisterComponent  },
   { path: 'login', component: LoginComponent },
+  
   { path: 'details/:id', component: DetailsComponent, canActivate: [AuthGuard]  },
+
   { path: 'profile', component: ProfileComponent , canActivate: [AuthGuard] }
 ];
 

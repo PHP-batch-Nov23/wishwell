@@ -46,8 +46,5 @@ export class RegisterComponent {
       .catch(error => {
         console.error('Registration failed:', error);
       });
-
-
-
   }
 }

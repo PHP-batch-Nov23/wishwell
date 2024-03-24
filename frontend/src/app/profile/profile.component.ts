@@ -49,13 +49,10 @@ export class ProfileComponent implements OnInit {
   }
 
   addBalance(){
-
     this.serviceBackend.updateUser({'balance':this.userProfile.balance+this.newBalance}).then(
       data=>{
-
         this.totalBalance = this.userProfile.balance + this.newBalance;
         this.newBalance = 0;
-        
       })
  
   }
@@ -92,9 +89,17 @@ export class ProfileComponent implements OnInit {
 
   saveChanges(field: string) {
     // Implement save changes logic here
+    this.serviceBackend.updateUser({"name":this.userProfile.name})
     this.toggleEditMode(field);
+    
   }
 
+  deleteCampaign(campId:any){
+    
+    this.serviceBackend.deleteCampaign(campId);
+    this.showMyCampaigns()
+    
+  }
 
 
   cancelEdit(field: string) {
@@ -119,7 +124,7 @@ export class ProfileComponent implements OnInit {
     // Reset the form after submission
     this.resetForm();
     // Switch back to the default view after campaign creation
-    this.showBalance(); // Change to whichever default view you prefer
+    this.showMyCampaigns(); // Change to whichever default view you prefer
   }
 
   cancelCreateCampaign() {
