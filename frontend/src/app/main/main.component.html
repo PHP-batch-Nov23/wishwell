@@ -1,27 +1,18 @@
-
- 
- 
-
-  <!-- Your main content here -->
-  <div class="search-bar">
-    <input type="text" placeholder="Search for campaigns">
-    <button>Search</button>
-  </div>
-  <div class="campaigns">
-    <!-- List of campaigns -->
-    <div class="donation-cards">
-      <div class="donation-card" *ngFor="let campaign of campaigns">
-        <h2>{{ campaign.title }}</h2>
-        <p>{{ campaign.description }}</p>
-        <p>Raised: ${{ campaign.current_amount }}</p>
-        <p>Goal: ${{ campaign.goal_amount }}</p>
-        <!-- Progress bar -->
-
-        <!-- Donate Now button -->
-        <button (click)="goToDetailsPage(campaign.id)">Donate Now</button>
-
-      </div>
+<!-- Your main content here -->
+<div class="search-bar">
+  <input type="text" placeholder="Search for campaigns" [(ngModel)]="searchQuery" (input)="filterCampaigns()">
+  <button (click)="clearSearch()">Clear</button>
+</div>
+<div class="campaigns">
+  <!-- List of campaigns -->
+  <div class="donation-cards">
+    <div class="donation-card" *ngFor="let campaign of filteredCampaigns">
+      <h2>{{ campaign.title }}</h2>
+      <p>{{ campaign.description }}</p>
+      <p>Raised: ${{ campaign.current_amount }}</p>
+      <p>Goal: ${{ campaign.goal_amount }}</p>
+      <!-- Donate Now button -->
+      <button (click)="goToDetailsPage(campaign.id)">Donate Now</button>
     </div>
   </div>
-  
-
+</div>

@@ -2,16 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { ServiceBackend } from '../service-backend.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-
   campaigns: any = [];
+  filteredCampaigns: any = [];
+  searchQuery: string = '';
 
-  constructor(private serviceBackend: ServiceBackend, private router: Router,private authService: AuthService) {}
+  constructor(
+    private serviceBackend: ServiceBackend,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.getCampaigns();
@@ -20,23 +26,30 @@ export class MainComponent implements OnInit {
   getCampaigns() {
     this.serviceBackend.getAllActiveCampaigns()
       .then(data => {
-        this.campaigns = data.data; // Assuming data is an array of campaigns
-        console.log(this.campaigns);
+        this.campaigns = data.data;
+        this.filteredCampaigns = [...this.campaigns]; // Initialize filteredCampaigns with all campaigns
       })
       .catch(error => {
         console.error('Error fetching campaigns:', error);
       });
   }
 
-  goToDetailsPage(id:string) {
+  goToDetailsPage(id: string) {
     if (this.authService.isLoggedIn()) {
-      // User is logged in, navigate to details page
-      this.router.navigate(['/details/'+id]);
+      this.router.navigate(['/details/' + id]);
     } else {
-      // User is not logged in, navigate to login page
       this.router.navigate(['/login']);
     }
   }
 
+  filterCampaigns() {
+    this.filteredCampaigns = this.campaigns.filter((campaign: { title: string; }) =>
+      campaign.title.toLowerCase().includes(this.searchQuery.toLowerCase())
+    );
+  }
 
+  clearSearch() {
+    this.searchQuery = '';
+    this.filterCampaigns(); // Reset filteredCampaigns
+  }
 }
