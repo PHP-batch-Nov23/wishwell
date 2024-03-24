@@ -11,6 +11,7 @@ import { AuthService } from '../auth.service';
 export class ProfileComponent implements OnInit {
   selectedOption: string = 'profile';
   userProfile: any={};
+  newBalance:any=0;
   editMode: any = {}; // Object to track edit mode for each field
   donations: any[] = []; // Example donations data
   totalBalance: number = 1000; // Example total balance
@@ -45,6 +46,18 @@ export class ProfileComponent implements OnInit {
       .catch(error => {
         console.error('Error fetching user profile:', error);
       });
+  }
+
+  addBalance(){
+
+    this.serviceBackend.updateUser({'balance':this.userProfile.balance+this.newBalance}).then(
+      data=>{
+
+        this.totalBalance = this.userProfile.balance + this.newBalance;
+        this.newBalance = 0;
+        
+      })
+ 
   }
 
 

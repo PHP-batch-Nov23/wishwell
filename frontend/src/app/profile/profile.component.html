@@ -101,7 +101,6 @@
               <th>Amount</th>
               <th>Transaction Date</th>
               <th>Action</th>
-
             </tr>
           </thead>
           <tbody>
@@ -112,9 +111,6 @@
               <td>{{ donation.amount }}</td>
               <td>{{ donation.transaction_date }}</td>
               <td> <button (click)="visitCampaign(donation.campaign_id)" > Visit Donation </button> </td>
-
-
-
             </tr>
           </tbody>
         </table>
@@ -125,6 +121,12 @@
         <!-- Balance template -->
         <h2>Balance</h2>
         <p>Total Balance: {{ totalBalance }}</p>
+        <!-- Add Balance -->
+        <div>
+          <label for="addBalance">Add Balance:</label>
+          <input type="number" id="addBalance" name="addBalance" [(ngModel)]="newBalance">
+          <button (click)="addBalance()">Add</button>
+        </div>
       </div>
 
         <div *ngSwitchCase="'CreateCampaign'" class="campaign-form">
