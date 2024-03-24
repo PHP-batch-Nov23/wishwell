@@ -9,15 +9,14 @@ import { LoginComponent } from './login/login.component';
 import { DetailsComponent } from './details/details.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './auth.guard';
-
-
+import { AuthGuardLoginRegister } from './loginRegistrationAuth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'main', component: MainComponent},
-  { path: 'register', component: RegisterComponent  },
-  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent , canActivate: [AuthGuardLoginRegister] },
+  { path: 'login', component: LoginComponent , canActivate: [AuthGuardLoginRegister] },
   
   { path: 'details/:id', component: DetailsComponent, canActivate: [AuthGuard]  },
 
