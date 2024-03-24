@@ -69,6 +69,10 @@ export class ProfileComponent implements OnInit {
       });
   }
 
+  visitCampaign(campid:any){
+    this.router.navigate(['/details/'+campid]);
+  }
+
   toggleEditMode(field: string) {
     this.editMode[field] = !this.editMode[field];
   }

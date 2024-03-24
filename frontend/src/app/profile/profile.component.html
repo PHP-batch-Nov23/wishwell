@@ -111,7 +111,7 @@
               <td>{{ donation.campaign_id }}</td>
               <td>{{ donation.amount }}</td>
               <td>{{ donation.transaction_date }}</td>
-              <td> <button>Visit Donation</button> </td>
+              <td> <button (click)="visitCampaign(donation.campaign_id)" > Visit Donation </button> </td>
 
 
 
