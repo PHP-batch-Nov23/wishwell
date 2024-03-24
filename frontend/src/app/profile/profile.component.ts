@@ -12,7 +12,7 @@ export class ProfileComponent implements OnInit {
   selectedOption: string = 'profile';
   userProfile: any={};
   editMode: any = {}; // Object to track edit mode for each field
-  donations: any[] = ['Donation 1', 'Donation 2', 'Donation 3']; // Example donations data
+  donations: any[] = []; // Example donations data
   totalBalance: number = 1000; // Example total balance
   campaignData: any={
     cause: '',
@@ -54,6 +54,7 @@ export class ProfileComponent implements OnInit {
 
   showDonations() {
     this.selectedOption = 'donations';
+    this.serviceBackend.userDonationsById().then(data=>this.donations=data.data)
   }
 
   showBalance() {
@@ -76,6 +77,8 @@ export class ProfileComponent implements OnInit {
     // Implement save changes logic here
     this.toggleEditMode(field);
   }
+
+
 
   cancelEdit(field: string) {
     // Implement cancel edit logic here

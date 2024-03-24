@@ -53,6 +53,13 @@ export class ServiceBackend {
     }
   }
 
+  getUser(){
+    return axios.post(this.baseUrl + 'userDetails',{"token":this.authService.getAuthToken()});
+  }
+  updateUser(data:any){
+    return axios.post(this.baseUrl + 'updateUser',{"token":this.authService.getAuthToken(),...data});
+  }
+
   createCampaign(campaignData:any){
     return axios.post(this.baseUrl + 'campaign',{...campaignData,"token":this.authService.getAuthToken()});
   }
@@ -71,6 +78,21 @@ export class ServiceBackend {
     
     return axios.get(this.baseUrl + 'details/'+id);
 
+  }
+  updateCampaignCurrentAmount(data:any){
+    
+    return axios.post(this.baseUrl + 'updateCampaignCurrentAmount',data);
+
+  }
+
+  createDonationEntry(data:any){
+
+    return axios.post(this.baseUrl + 'createDonationEntry',data);
+
+  }
+
+  userDonationsById(){
+    return axios.post(this.baseUrl + 'getUserAllDonations',{'token':this.authService.getAuthToken()});
   }
 
 
