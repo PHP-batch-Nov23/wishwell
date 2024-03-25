@@ -107,5 +107,13 @@ export class ServiceBackend {
   }
 
 
+  activateCampaign(campId:any){
+    console.log(campId,"backend service called active camp");
+
+    return axios.post(this.baseUrl + 'activateCampaign',{'campId':campId,'token':this.authService.getAuthToken()});
+    
+  }
+
+
 
 }

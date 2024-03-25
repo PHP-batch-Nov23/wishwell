@@ -224,7 +224,9 @@
             <!-- Edit and Delete buttons -->
           
             <button *ngIf="campaign.status === 'active'" (click)="deactivateCampaign(campaign.id)">Deactivate</button>
-            <button *ngIf="campaign.status === 'inactive'" (click)="deactivateCampaign(campaign.id)">Active</button>
+            <button *ngIf="campaign.status === 'inactive'" (click)="activateCampaign(campaign.id)">Active</button>
+            <button *ngIf="campaign.status === 'pending'">Pending State</button>
+
 
             <button (click)="deleteCampaign(campaign.id)">Delete</button> 
           </div>

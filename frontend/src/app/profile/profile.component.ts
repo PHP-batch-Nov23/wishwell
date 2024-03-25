@@ -178,7 +178,15 @@ export class ProfileComponent implements OnInit {
   }
 
   deactivateCampaign(campId:any){
-    this.serviceBackend.deactivateCampaign(campId);
+    this.serviceBackend.deactivateCampaign(campId).then(data=>{
+      this.showMyCampaigns();
+    })
+  }
+  activateCampaign(campId:any){
+
+    this.serviceBackend.activateCampaign(campId).then(data=>{
+      this.showMyCampaigns();
+    });
   }
 
   resetForm() {
