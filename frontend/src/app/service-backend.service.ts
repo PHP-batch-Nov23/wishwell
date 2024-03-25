@@ -65,15 +65,11 @@ export class ServiceBackend {
   }
 
   getAllCampaignBySameUserId(){
-
     return axios.post(this.baseUrl + 'getAllCampaignsWithId',{"token":this.authService.getAuthToken()});
-
   }
 
   getAllCampaignDonations(campaign:any){
-
     return axios.post(this.baseUrl + 'getAllCampaignDonations',{'campaign':campaign});
-
   }
 
   getAllActiveCampaigns(){
@@ -103,6 +99,11 @@ export class ServiceBackend {
 
   deleteCampaign(campId:any){
     return axios.post(this.baseUrl + 'campaign/destroy',{'campId':campId,'token':this.authService.getAuthToken()});
+  }
+
+  deactivateCampaign(campId:any){
+    return axios.post(this.baseUrl + 'deactivateCampaignById',{'campId':campId,'token':this.authService.getAuthToken()});
+    
   }
 
 

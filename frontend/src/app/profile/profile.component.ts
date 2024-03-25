@@ -51,26 +51,30 @@ export class ProfileComponent implements OnInit {
   downloadReceipt(donation: any) {
     // Generate HTML content for the receipt
     const receiptContent = `
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Donor ID</th>
-            <th>Campaign ID</th>
-            <th>Amount</th>
-            <th>Transaction Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>${donation.id}</td>
-            <td>${donation.donor_id}</td>
-            <td>${donation.campaign_id}</td>
-            <td>${donation.amount}</td>
-            <td>${donation.transaction_date}</td>
-          </tr>
-        </tbody>
-      </table>
+     
+    <div style="text-align: center;">
+    <table style="border-collapse: collapse; width: 80%; margin: auto; border: 1px solid #ddd;">
+      <thead>
+        <tr style="background-color: #f2f2f2;">
+          <th style="padding: 8px; border: 1px solid #ddd;">ID</th>
+          <th style="padding: 8px; border: 1px solid #ddd;">Donor ID</th>
+          <th style="padding: 8px; border: 1px solid #ddd;">Campaign ID</th>
+          <th style="padding: 8px; border: 1px solid #ddd;">Amount</th>
+          <th style="padding: 8px; border: 1px solid #ddd;">Transaction Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border: 1px solid #ddd;">
+          <td style="padding: 8px; border: 1px solid #ddd;">${donation.id}</td>
+          <td style="padding: 8px; border: 1px solid #ddd;">${donation.donor_id}</td>
+          <td style="padding: 8px; border: 1px solid #ddd;">${donation.campaign_id}</td>
+          <td style="padding: 8px; border: 1px solid #ddd;">${donation.amount}</td>
+          <td style="padding: 8px; border: 1px solid #ddd;">${donation.transaction_date}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
     `;
 
     // Convert HTML content to a Blob object
@@ -115,6 +119,7 @@ export class ProfileComponent implements OnInit {
     this.selectedOption = 'myCampaigns';
     this.serviceBackend.getAllCampaignBySameUserId().then(data=>{
       this.userCampaigns= data.data.campaigns;
+      console.log(this.userCampaigns)
       });
   }
 
@@ -172,6 +177,10 @@ export class ProfileComponent implements OnInit {
     this.showBalance(); // Change to whichever default view you prefer
   }
 
+  deactivateCampaign(campId:any){
+    this.serviceBackend.deactivateCampaign(campId);
+  }
+
   resetForm() {
     // Reset campaign data
     this.campaignData = {
@@ -187,6 +196,7 @@ export class ProfileComponent implements OnInit {
       beneficiaryMobile: ''
     };
   }
+
 
   logout() {
     this.authService.logout();

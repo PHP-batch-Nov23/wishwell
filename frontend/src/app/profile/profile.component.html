@@ -222,7 +222,10 @@
             <p>Created At: {{ campaign.created_at }}</p>
             <p>Updated At: {{ campaign.updated_at }}</p>
             <!-- Edit and Delete buttons -->
-            <!-- <button (click)="editCampaign(campaign)">Edit</button>-->
+          
+            <button *ngIf="campaign.status === 'active'" (click)="deactivateCampaign(campaign.id)">Deactivate</button>
+            <button *ngIf="campaign.status === 'inactive'" (click)="deactivateCampaign(campaign.id)">Active</button>
+
             <button (click)="deleteCampaign(campaign.id)">Delete</button> 
           </div>
         </div>
