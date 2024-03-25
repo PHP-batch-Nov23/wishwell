@@ -12,8 +12,10 @@ import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { DetailsComponent } from './details/details.component';
 import { ProfileComponent } from './profile/profile.component'; 
+import { NgToastModule } from 'ng-angular-popup';
 
 @NgModule({
+
   declarations: [
     AppComponent,
     NavbarComponent,
@@ -28,7 +30,8 @@ import { ProfileComponent } from './profile/profile.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    NgToastModule
   ],
   providers: [
     provideClientHydration()

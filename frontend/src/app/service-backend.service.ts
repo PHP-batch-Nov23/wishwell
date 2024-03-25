@@ -70,6 +70,12 @@ export class ServiceBackend {
 
   }
 
+  getAllCampaignDonations(campaign:any){
+
+    return axios.post(this.baseUrl + 'getAllCampaignDonations',{'campaign':campaign});
+
+  }
+
   getAllActiveCampaigns(){
     return axios.get(this.baseUrl + 'getAllActiveCampaigns');
   }
