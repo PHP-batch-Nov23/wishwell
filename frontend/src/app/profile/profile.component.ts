@@ -48,6 +48,45 @@ export class ProfileComponent implements OnInit {
       });
   }
 
+  downloadReceipt(donation: any) {
+    // Generate HTML content for the receipt
+    const receiptContent = `
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Donor ID</th>
+            <th>Campaign ID</th>
+            <th>Amount</th>
+            <th>Transaction Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>${donation.id}</td>
+            <td>${donation.donor_id}</td>
+            <td>${donation.campaign_id}</td>
+            <td>${donation.amount}</td>
+            <td>${donation.transaction_date}</td>
+          </tr>
+        </tbody>
+      </table>
+    `;
+
+    // Convert HTML content to a Blob object
+    const blob = new Blob([receiptContent], { type: 'text/html' });
+    const url = window.URL.createObjectURL(blob);
+
+    // Create a link element
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `receipt_${donation.id}.html`; // Set the filename
+    link.click();
+
+    // Release the URL object
+    window.URL.revokeObjectURL(url);
+  }
+
   addBalance(){
     this.serviceBackend.updateUser({'balance':this.userProfile.balance+this.newBalance}).then(
       data=>{

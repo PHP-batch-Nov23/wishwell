@@ -100,7 +100,10 @@
               <th>Campaign ID</th>
               <th>Amount</th>
               <th>Transaction Date</th>
+
               <th>Action</th>
+              <th>Recipt</th>
+
             </tr>
           </thead>
           <tbody>
@@ -111,6 +114,7 @@
               <td>{{ donation.amount }}</td>
               <td>{{ donation.transaction_date }}</td>
               <td> <button (click)="visitCampaign(donation.campaign_id)" > Visit Donation </button> </td>
+              <td><button (click)="downloadReceipt(donation)"  >download</button></td>
             </tr>
           </tbody>
         </table>
