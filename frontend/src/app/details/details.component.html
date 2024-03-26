@@ -4,13 +4,13 @@
 
 <div class="container">
   <h1>Campaign Details</h1>
+  <h2>{{campaign.status}}</h2>
   <div class="campaign-details">
     <div class="left-half">
       <div class="campaign-description">
         <h2>{{ campaign.title }}</h2>
         <p>{{ campaign.description }}</p>
         <p>{{ campaign.current_amount }}</p>
-
         <p>Start Date: {{ campaign.start_date }}</p>
         <p>End Date: {{ campaign.end_date }}</p>
       </div>
@@ -24,8 +24,12 @@
       </div>
     </div>
     <div class="right-half">
-      <div class="donation-form">
-        <h2>Make a Donation</h2>
+      <div *ngIf="campaign.status==='active' && getval()" class="donation-form">
+
+
+
+        
+        <h2>Make a Donation for {{ campaign.title }}</h2>
         <form (ngSubmit)="donate()">
           <div class="form-group">
             <label for="donationAmount">Amount:</label>
@@ -36,7 +40,14 @@
           </div>
         </form>
       </div>
+      <div *ngIf="!(campaign.status==='active') || !getval()" class="target-completed">
+
+          <h2>Not accepting any donation now</h2>
+      
+
+      </div>
     </div>
+    
   </div>
 
   <div class="donations-table">

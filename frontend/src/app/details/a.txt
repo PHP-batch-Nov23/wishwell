@@ -2,10 +2,12 @@
   <!-- Left Half: Campaign Description and Fundraiser Details -->
   <div class="left-half">
     <!-- Description -->
-    <div class="campaign-description">
 
+    <div class="campaign-description">
+    
       <h2>Campaign Description</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec velit sit amet nulla semper lacinia. Integer vitae leo condimentum, posuere magna nec, eleifend libero.</p>
+
     </div>
     
     <!-- Fundraiser Details -->
@@ -15,9 +17,8 @@
       <p>Email: johnample.com</p>
       <p>Address: 123 Main St, Anytown</p>
     </div>
+
   </div>
-  
-  
   <!-- Right Half: Donation Form -->
   <div class="right-half">
     <div class="donation-form">
