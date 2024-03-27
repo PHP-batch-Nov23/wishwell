@@ -1,33 +1,54 @@
 <?php
 namespace App\Http\Controllers;
-
-use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Admin;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
     public function index()
     {
-        $users = User::all();
-        return view('admin.users.index', compact('users'));
+        return view('admin');
     }
 
-    public function edit($id)
+
+
+    public function login(Request $request)
     {
-        $user = User::findOrFail($id);
-        return view('admin.users.edit', compact('user'));
-    }
+        
+        $request->validate([
+            'username' => 'required',
+            'password' => 'required',
+            'security_token'=>'required',
+        ]);
 
-    public function update(Request $request, $id)
+        if (Auth::guard('admin')->attempt(['username' => $request->username, 'password' => $request->password, 'security_token' => $request->security_token])) {
+            // Authentication successful, redirect to the dashboard
+            return redirect()->route('dashboard');
+        } else {
+            // Authentication failed, redirect back with error message
+            return back()->withErrors([
+                'username' => 'The provided credentials do not match our records.',
+            ])->withInput($request->only('username'));
+        }
+        
+        
+    }
+    public function dashboard(Request $request)
     {
-        // Validate request data
+        print_r(Auth::guard('admin')->user()->toArray());
 
-        // Update user
     }
-
-    public function destroy($id)
-    {
-        // Find user by ID and delete
-    }
-    
 }
+
+//     public function hashAndPrintPassword($password)
+//     {
+//         $hashedPassword = Hash::make((string) $password);
+//         echo "Hashed password: " . $hashedPassword . "\n";
+//     }
+// }
+    
+//     $adminController = new AdminController();
+//     $adminController->hashAndPrintPassword(123456); // Replace 123456 with your integer password

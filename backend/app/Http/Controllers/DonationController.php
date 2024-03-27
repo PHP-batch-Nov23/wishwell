@@ -23,7 +23,7 @@ class DonationController extends Controller
                 'donor_id',
                 'campaign_id',
                 'amount',
-                'transaction_date'
+                
             ];
         
             // Iterate over the required fields
@@ -40,16 +40,15 @@ class DonationController extends Controller
         
             $request->validate([
                 'donor_id' => 'required|exists:allusers,id',
-                'campaign_id' => 'required|exists:campaigns,id',
+                'campaign_id' => 'required|numeric|exists:campaigns,id',
                 'amount' => 'required|numeric|min:0',
-                'transaction_date' => 'required|date',
             ]);
 
 
     
             $user = new Donation();
+            $user->transaction_date = now();
             $user->fill($request->input());
-            //$user->password = bcrypt($request->password);       // hashing of password
             $user->save();
             return response()->json($user);
         }
@@ -58,6 +57,18 @@ class DonationController extends Controller
         {
             $user = Donation::findOrFail($id);
             return response()->json($user);
+        }
+
+        public function userDonations(Request $request){
+            $donations = Donation::where('donor_id', $request->userInfo['id'])->get();
+            return response()->json($donations);
+        }
+
+        public function campaignDonations(Request $request){
+          
+            $donations = Donation::where('campaign_id', $request->campaign)->join('allusers', 'donations.donor_id', '=', 'allusers.id')->select('donations.amount', 'allusers.name as donor_name')->get();
+            return response()->json($donations);
+
         }
     
         public function update(Request $request, $id)
@@ -69,11 +80,11 @@ class DonationController extends Controller
             'campaign_id' => 'required|exists:campaigns,id',
             'amount' => 'required|numeric|min:0',
             'transaction_date' => 'required|date',
-        ]);
+         ]);
     
-        $user->fill($request->input());
-        $user->save();
-        return response()->json($user);
+            $user->fill($request->input());
+            $user->save();
+            return response()->json($user);
         }
     
         public function destroy($id)

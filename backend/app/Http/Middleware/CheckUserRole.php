@@ -21,7 +21,9 @@ class CheckUserRole
     {
             try{
 
-                $cookieValue = $request->cookie('token');
+                
+
+             
 
                 if (!$request->token) {
                     throw new Exception('Token not available');

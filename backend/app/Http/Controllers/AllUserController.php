@@ -7,6 +7,8 @@ use App\Models\AllUser;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+
 
 class AllUserController extends Controller
 {
@@ -92,24 +94,45 @@ class AllUserController extends Controller
 
     public function update(Request $request)
     {
-        
-     $user = AllUser::findOrFail($id);
-     $request->validate([
-        'name' => 'required|max:255',
-        'email' => 'required|email|unique:allusers,email,' . $user->id,
-        'password' => 'required',
-        'role' => 'required|in:donor,fundraiser',
-        'dob' => 'nullable|date',
-        'age' => 'nullable',
-        'address' => 'nullable',
-        'city' => 'nullable',
-        'profile_picture' => 'nullable',
-        'description' => 'nullable',]);
-
-        $user->fill($request->input());
+        $user = AllUser::findOrFail($request->userInfo['id']); // Assuming 'id' is sent with the request
+    
+        // Get the data from the request
+        $data = $request->except('token');
+    
+        // Define the validation rules for the fields that are present in the request
+        $rules = [
+            'name' => 'sometimes|required|max:255',
+            'email' => 'sometimes|required|email|unique:allusers,email,' . $user->id,
+            'password' => 'sometimes|required',
+            'role' => 'sometimes|required|in:donor,fundraiser',
+            'dob' => 'nullable|date',
+            'age' => 'nullable',
+            'address' => 'nullable',
+            'city' => 'nullable',
+            'profile_picture' => 'nullable',
+            'description' => 'nullable',
+        ];
+    
+        // Run validation only on the fields that are present in the request
+        $validator = Validator::make($data, $rules);
+    
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+    
+        // Update only the fields that are present in the request
+        foreach ($data as $key => $value) {
+            if (!is_null($value)) {
+                $user->$key = $value;
+            }
+        }
+    
+        // Save the changes
         $user->save();
+    
         return response()->json($user);
     }
+    
 
     public function destroy($id)
     {
@@ -169,7 +192,7 @@ class AllUserController extends Controller
 
         return response()->json([
 
-            "message" => "Success",
+            "message" => "Success login",
             "userData"=> $user,
             "request"=> $request->userInfo['id']
             

@@ -1,10 +1,14 @@
 <?php
 
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Campaign;
+use App\Models\AllUser;
+use Illuminate\Support\Facades\Validator;
 
+use Carbon\Carbon; 
 
 class CampaignController extends Controller
 {
@@ -17,13 +21,25 @@ class CampaignController extends Controller
     
         public function store(Request $request)
         {
-            //print_r ($request);
-            //return response()->json($request);
+            // Find the user by ID
 
-            
+       
 
+            $user = AllUser::findOrFail($request->userInfo['id']);
+
+          
+        
+            // Check if the user is a fundraiser
+            if ($user->role != 'fundraiser') {
+                return response()->json([
+                    "message" => "You can't create a campaign because you are not a fundraiser",
+                ], 401);
+            }
+
+        
+        
+            // Define the required fields
             $requiredFields = [
-                'user_id',
                 'cause',
                 'title',
                 'description',
@@ -34,22 +50,20 @@ class CampaignController extends Controller
                 'beneficiary_age',
                 'beneficiary_city',
                 'beneficiary_mobile',
-                'status'
             ];
+         
         
-            // Iterate over the required fields
+            // Validate the presence of required fields
             foreach ($requiredFields as $field) {
-                // Check if the field is missing in the request
                 if (!$request->has($field)) {
-                    // Return an error response indicating the missing field
                     return response()->json(['error' => 'The ' . $field . ' field is required.'], 422);
                 }
             }
+         
+        
 
-    
-
+            // Validate the request data
             $request->validate([
-                'user_id' => 'required|exists:allusers,id',
                 'cause' => 'required|string|max:255',
                 'title' => 'required|string|max:255',
                 'description' => 'required|string',
@@ -61,29 +75,30 @@ class CampaignController extends Controller
                 'beneficiary_age' => 'required|integer|min:0',
                 'beneficiary_city' => 'required|string|max:255',
                 'beneficiary_mobile' => 'required|string|max:255',
-                'status' => 'required|in:active,inactive,pending',
             ]);
-    
-            $campaign = new Campaign();
-            $campaign->fill($request->input());
 
-            if ($campaign) {
-                $campaign->status = 'pending';
-            }
 
+          
+        
+            // Create a new Campaign instance
+            $campaign = new Campaign($request->only($requiredFields));
+        
+            // Set the status to pending
+            $campaign->status = 'pending';
+        
+            // Set the user ID
+            $campaign->user_id = $request->userInfo['id'];
+        
+            // Save the campaign
             $campaign->save();
-
-
+        
+            // Return a success response
             return response()->json([
-
-                "message" => "campain createdSuccess",
-                "userData"=> $campaign,
-            
-                
-            ],201);
-
-
+                "message" => "Campaign created successfully",
+                "userData" => $campaign,
+            ], 201);
         }
+        
           
         public function show($id)
         {
@@ -130,54 +145,146 @@ class CampaignController extends Controller
 
         public function donate(Request $request){
 
-                   // Validate the donation request
-        $request->validate([
-            'donor_id' => 'required|exists:users,id',
-            'campaign_id' => 'required|exists:campaigns,id',
-            'amount' => 'required|numeric|min:0',
-        ]);
+          // Validate the donation request
+            $request->validate([
+                'donor_id' => 'required|exists:users,id',
+                'campaign_id' => 'required|exists:campaigns,id',
+                'amount' => 'required|numeric|min:0',
+            ]);
 
-        // Get user and campaign
-        $user = User::findOrFail($request->donor_id);
-        $campaign = Campaign::findOrFail($request->campaign_id);
+            // Get user and campaign
+            $user = User::findOrFail($request->donor_id);
+            $campaign = Campaign::findOrFail($request->campaign_id);
 
-        // Validate user's balance
-        if ($user->balance < $request->amount) {
-            return response()->json(['error' => 'Insufficient balance'], 400);
-        }
+            // Validate user's balance
+            if ($user->balance < $request->amount) {
+                return response()->json(['error' => 'Insufficient balance'], 400);
+            }
 
-        // Update user's balance
-        $user->balance -= $request->amount;
-        $user->save();
+            // Update user's balance
+            $user->balance -= $request->amount;
+            $user->save();
 
-        // Update campaign's current amount
-        $campaign->current_amount += $request->amount;
-        $campaign->save();
+            // Update campaign's current amount
+            $campaign->current_amount += $request->amount;
+            $campaign->save();
 
-        // Create donation record
-        $donation = new Donation();
-        $donation->user_id = $user->id;
-        $donation->campaign_id = $campaign->id;
-        $donation->amount = $request->amount;
-        $donation->transaction_date = Carbon::now(); // Set transaction date to current date
-        $donation->save();
+            // Create donation record
+            $donation = new Donation();
+            $donation->user_id = $user->id;
+            $donation->campaign_id = $campaign->id;
+            $donation->amount = $request->amount;
+            $donation->transaction_date = Carbon::now(); // Set transaction date to current date
+            $donation->save();
 
-        return response()->json(['message' => 'Donation successful'], 200);
+            return response()->json(['message' => 'Donation successful'], 200);
 
         }
     
-        public function destroy($id)
+        public function destroy(Request $request)
         {
-         $user = Campaign::findOrFail($id);
+            $campaign = Campaign::findOrFail($request->campId);
 
-         if ($campaign->user_id != $request->userInfo['id']) {
-            return response()->json(['error' => 'Unauthorized action.'], 403);
-        }   
-
-         $user->delete();
-         return response()->json($user);
+            if(!$campaign){
+                return response()->json(['error' => 'No campaign exits'], 403);
+            }
+            if ($campaign->user_id != $request->userInfo['id']) {
+                return response()->json(['error' => 'Unauthorized action.'], 403);
+            }
+            $campaign->delete();
+            
+            return response()->json($campaign);
         }
+
+        public function getAllCampaignOfUserId(Request $request)
+        {
+            // Find all campaigns associated with the provided user ID
+            $campaigns = Campaign::where('user_id', $request->userInfo['id'])->get();
+            
+            // Check if any campaigns were found
+            // if ($campaigns->isEmpty()) {
+            //     // Return a message indicating no campaigns found for the user
+            //     return response()->json(['message' => 'No campaigns found for the user.'], 404);
+            // }
+            
+            // Return the campaigns associated with the user ID
+            return response()->json(['campaigns' => $campaigns], 200);
+        }
+
+        public function activeCampaigns()
+        {
+            // Fetch all campaigns with pending status
+            $campaigns = Campaign::where('status', 'active')->get();
     
+            // Return the campaigns as JSON response
+            return response()->json($campaigns);
+        }
+
+        public function updateCampaignCurrentAmount(Request $request)
+        {
+            $campaign = Campaign::findOrFail($request->id); // Assuming 'id' is sent with the request
+        
+            // Remove the '_token' field from the request
+            $data = $request->only('current_amount_add');
+        
+            // Define the validation rules for the 'current_amount' field
+            $rules = [
+                'current_amount_add' => 'nullable|numeric',
+            ];
+        
+            // Run validation only on the 'current_amount' field
+            $validator = Validator::make($data, $rules);
+        
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
+        
+            // Update the 'current_amount' field if present in the request
+            if ($request->has('current_amount_add')) {
+                $campaign->current_amount += $request->current_amount_add;
+            }
+        
+            // Save the changes
+            $campaign->save();
+        
+            return response()->json($campaign);
+        }
+
+
+
+public function deactivateCampaign(Request $request)
+{
+    
+    $campaign = Campaign::findOrFail($request->campId);
+    
+    if ($campaign->user_id != $request->userInfo['id']) {
+        return response()->json(['error' => 'Unauthorized action.'], 403);
+    }
+
+    $campaign->status = 'inactive';
+    $campaign->save();
+
+    return response()->json(['message' => 'Campaign deactivated successfully'], 200);
+}
+
+public function activateCampaign(Request $request)
+{
+    
+    $campaign = Campaign::findOrFail($request->campId);
+
+    if ($campaign->user_id != $request->userInfo['id']) {
+        return response()->json(['error' => 'Unauthorized action.'], 403);
+    }
+    if($campaign->status == 'pending'){
+        return response()->json(['error' => 'you cannot activate a campaign that is queue for approval'], 403);
+    }
+    $campaign->status = 'active';
+    $campaign->save();
+
+    return response()->json(['message' => 'Campaign deactivated successfully'], 200);
+}
+
+        
     }
     
 

@@ -16,3 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/login', [App\Http\Controllers\AdminController::class, 'index']);
+Route::post('/login', [App\Http\Controllers\AdminController::class, 'login'])->name('login');
+Route::get('/dashboard',  [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+Route::put('/approve/{id}', [App\Http\Controllers\DashboardController::class, 'approve'])->name('approve');
+Route::put('/deny/{id}', [App\Http\Controllers\DashboardController::class, 'deny'])->name('deny');
+Route::delete('/disable/{id}',[App\Http\Controllers\DashboardController::class,'disable'])->name('disable');
