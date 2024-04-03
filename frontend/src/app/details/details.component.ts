@@ -67,6 +67,14 @@ export class DetailsComponent implements OnInit {
             this.serviceBackend
               .getAllCampaignDonations(this.campaignId)
               .then((data) => (this.donations = data.data.reverse()));
+
+              this.campaign = this.serviceBackend
+        .getCampaignById(this.campaignId)
+        .then((data) => {
+          this.campaign = data.data;
+          this.showDonationForm = this.campaign.goal_amount > this.campaign.current_amount;
+          console.log(data.data);
+        });
           });
         console.log("Thank you for your donation of $", this.donationAmount);
       }

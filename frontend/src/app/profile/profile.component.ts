@@ -53,6 +53,7 @@ export class ProfileComponent implements OnInit {
     const receiptContent = `
      
     <div style="text-align: center;">
+    <h1>DONATION RECIPT</h1>
     <table style="border-collapse: collapse; width: 80%; margin: auto; border: 1px solid #ddd;">
       <thead>
         <tr style="background-color: #f2f2f2;">

@@ -89,7 +89,7 @@ export class ServiceBackend {
 
   createDonationEntry(data:any){
 
-    return axios.post(this.baseUrl + 'createDonationEntry',data);
+    return axios.post(this.baseUrl + 'createDonationEntry',{...data,'token':this.authService.getAuthToken()});
 
   }
 

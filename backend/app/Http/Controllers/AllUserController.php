@@ -47,7 +47,7 @@ class AllUserController extends Controller
         $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|email|unique:allusers,email',
-            'password' => 'required',
+            'password' => 'required|min:8',
             'role' => 'required|in:donor,fundraiser',
             'sex'=>'required|in:male,female,other',
             'pan' => 'unique:allusers',
@@ -59,6 +59,10 @@ class AllUserController extends Controller
             'profile_picture' => 'nullable',
             'description' => 'nullable',
         ]);
+
+        if ($request->role === 'donor') {
+            $request->request->remove('pan');
+        }
 
 
         $currentDate = date('Y-m-d');

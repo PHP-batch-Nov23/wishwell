@@ -1,81 +1,95 @@
 /* Hero Section */
 .hero {
-    background-color: #a71818f4;
-    color: #fff;
-    padding: 100px 0;
-    text-align: center;
-  }
-  
-  .hero h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
-  }
-  
-  .hero p {
-    font-size: 1.2rem;
-    margin-bottom: 40px;
-  }
-  
-  .cta-button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #ffffff;
-    font-weight: 20px;
-    color: #a71818f4;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .cta-button:hover {
-    background-color: #bc2929;
-  }
-  
-  /* About Section */
-  .about {
-    background-color: #ffffffea;
-    padding: 80px 0;
-  }
-  
-  .about .container {
-    text-align: center;
-  }
-  
-  .about h2 {
-    font-size: 2.5rem;
-    margin-bottom: 40px;
-  }
-  
-  .about p {
-    font-size: 1.1rem;
-  }
-  
-  /* Features Section */
-  .features {
-    color: #fff;
-    background-color: #a71818f4;
-    padding: 80px 0;
-  }
-  
-  .features .container {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-  }
-  
+  background-color: #700;
+  font-size: 20px;
+  color: #fff;
+  padding: 90px ;
+  text-align: center;
+  margin-left: -10px;
+  margin-right: -12px;
+}
+
+.hero h1 {
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 2rem;
+  margin-bottom: 40px;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  font-weight: 20px;
+  color: #700;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #700;
+}
+
+/* About Section */
+.about {
+  background-image: url(https://www.freepik.com/free-vector/elegant-red-geometric-background_1252905.htm#fromView=search&page=1&position=34&uuid=52189fde-173b-4849-ae45-43f2061f342e);
+  background-size: cover; /* Ensure the background image covers the entire section */
+  background-position: center; /* Center the background image */
+  padding: 80px 0;
+}
+
+.about .container {
+  text-align: center;
+}
+
+.about h2 {
+  color: #700;
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+}
+
+.about p {
+  font-size: 1.1rem;
+  color:#700; /* Set text color to white or any other color for better contrast */
+}
+
+/* Features Section */
+.features {
+  color: #fff;
+  background-color: #700;
+  padding: 80px 0;
+}
+
+.features .container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.feature {
+  width: 30%;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.feature h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.feature p {
+  font-size: 1rem;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+  /* Adjustments for smaller screens */
   .feature {
-    width: 30%;
-    padding: 20px;
-    text-align: center;
-    margin-bottom: 30px;
+      width: 100%; /* Make features occupy full width on smaller screens */
   }
-  
-  .feature h3 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-  }
-  
-  .feature p {
-    font-size: 1rem;
-  }
-  
+}

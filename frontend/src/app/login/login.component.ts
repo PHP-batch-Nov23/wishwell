@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { ServiceBackend } from '../service-backend.service';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
-import { NgToastService } from 'ng-angular-popup';
+// import { ToastComponent } from '../toast/toast.component';
+
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
 
-  constructor(private serviceBackend: ServiceBackend, private authService: AuthService, private router: Router,private toast:NgToastService) { }
+  constructor(private serviceBackend: ServiceBackend, private authService: AuthService, private router: Router) { }
 
   login() {
     const loginData = {
@@ -29,7 +30,10 @@ export class LoginComponent {
           // If token is received from backend, set it in AuthService
           this.authService.setAuthToken(response.data.token);
           console.log(this.authService.getAuthToken());
-          this.toast.success({detail:'Success',summary:'This is Success', position:'topRight',sticky:true})
+          
+          // this.toast.showMessage('Success message', 'success');
+        
+
           // Redirect to main page after successful login
           this.router.navigate(['/main']);
         } else {

@@ -90,6 +90,7 @@ button {
 /* -------------------------------------------------------------------------------- */
 
 .campaign-form {
+  color: WHITE;
   font-weight: bold;
   height: 900px;
  width: 800px;
@@ -174,6 +175,9 @@ button {
     flex-wrap: wrap;
     gap: 20px;
   }
+  .ofhidden{
+    overflow: scroll;
+  }
   
   .campaign-card {
     max-width: 400px; /* Set maximum width */
@@ -183,7 +187,13 @@ button {
     padding: 20px;
     margin-bottom: 20px; /* Add margin between cards */
     box-sizing: border-box;
-    overflow: hidden; /* Hide overflow content */
+     /* Hide overflow content */
+  }
+  .desctext{
+    width: 200px; /* Set a fixed width */
+    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: hidden; /* Hide any overflowed content */
+    text-overflow: ellipsis; 
   }
   
   .campaign-card h3 {

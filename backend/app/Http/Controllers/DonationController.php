@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Donation;
+use App\Models\Campaign;
+
 
 class DonationController extends Controller
 {
@@ -16,14 +18,11 @@ class DonationController extends Controller
     
         public function store(Request $request)
         {
-            //print_r ($request);
-            //  return response()->json($request);
 
             $requiredFields = [
                 'donor_id',
                 'campaign_id',
                 'amount',
-                
             ];
         
             // Iterate over the required fields
@@ -33,6 +32,12 @@ class DonationController extends Controller
                     // Return an error response indicating the missing field
                     return response()->json(['error' => 'The ' . $field . ' field is required.'], 422);
                 }
+            }
+
+            $campaign = Campaign::findOrFail($request->campaign_id);
+            if ($campaign->goal_amount <= $campaign->current_amount) {
+                $campaign->status = 'inactive';
+                $campaign->save();
             }
 
 

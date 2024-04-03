@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Campaign;
+use App\Models\Donation;
+
+
 use App\Models\AllUser;
 use Illuminate\Support\Facades\Validator;
 
@@ -112,7 +115,7 @@ class CampaignController extends Controller
             
             if ($campaign->user_id != $request->userInfo['id']) {
                 return response()->json(['error' => 'Unauthorized action.'], 403);
-            }        
+            }
             
             // Validate the request data
             $request->validate([
@@ -145,30 +148,50 @@ class CampaignController extends Controller
 
         public function donate(Request $request){
 
-          // Validate the donation request
+            $requiredFields = [
+                'donor_id',
+                'campaign_id',
+                'amount',
+            ];
+        
+            // Iterate over the required fields
+            foreach ($requiredFields as $field) {
+                // Check if the field is missing in the request
+                if (!$request->has($field)) {
+                    // Return an error response indicating the missing field
+                    return response()->json(['error' => 'The ' . $field . ' field is required.'], 422);
+                }
+            }
+        
             $request->validate([
-                'donor_id' => 'required|exists:users,id',
+                'donor_id' => 'required|exists:allusers,id',
                 'campaign_id' => 'required|exists:campaigns,id',
                 'amount' => 'required|numeric|min:0',
             ]);
-
+        
             // Get user and campaign
-            $user = User::findOrFail($request->donor_id);
+            $user = AllUser::findOrFail($request->donor_id);
             $campaign = Campaign::findOrFail($request->campaign_id);
-
+        
             // Validate user's balance
             if ($user->balance < $request->amount) {
                 return response()->json(['error' => 'Insufficient balance'], 400);
             }
-
+        
             // Update user's balance
             $user->balance -= $request->amount;
             $user->save();
-
+        
             // Update campaign's current amount
             $campaign->current_amount += $request->amount;
             $campaign->save();
-
+        
+            // Check if campaign needs to be set to inactive
+            if ($campaign->current_amount >= $campaign->target_amount) {
+                $campaign->status = 'inactive';
+                $campaign->save();
+            }
+        
             // Create donation record
             $donation = new Donation();
             $donation->user_id = $user->id;
@@ -176,25 +199,35 @@ class CampaignController extends Controller
             $donation->amount = $request->amount;
             $donation->transaction_date = Carbon::now(); // Set transaction date to current date
             $donation->save();
-
+        
             return response()->json(['message' => 'Donation successful'], 200);
-
         }
     
         public function destroy(Request $request)
         {
             $campaign = Campaign::findOrFail($request->campId);
-
+        
             if(!$campaign){
-                return response()->json(['error' => 'No campaign exits'], 403);
+                return response()->json(['error' => 'No campaign exists'], 403);
             }
+        
             if ($campaign->user_id != $request->userInfo['id']) {
                 return response()->json(['error' => 'Unauthorized action.'], 403);
             }
+        
+            // Check if there are any donations for this campaign
+            $donationsCount = Donation::where('campaign_id', $campaign->id)->count();
+        
+            if ($donationsCount > 0) {
+                return response()->json(['error' => 'Campaign cannot be deleted because donations exist.'], 403);
+            }
+        
+            // If no donations exist, delete the campaign
             $campaign->delete();
             
             return response()->json($campaign);
         }
+        
 
         public function getAllCampaignOfUserId(Request $request)
         {
@@ -272,9 +305,18 @@ public function activateCampaign(Request $request)
     
     $campaign = Campaign::findOrFail($request->campId);
 
+
+
+
     if ($campaign->user_id != $request->userInfo['id']) {
         return response()->json(['error' => 'Unauthorized action.'], 403);
     }
+
+    if ($campaign->current_amount >= $campaign->goal_amount) {
+        return response()->json(['error' => 'can not activate the campaign because donation needs are fullfilled'], 403);
+    }
+
+    
     if($campaign->status == 'pending'){
         return response()->json(['error' => 'you cannot activate a campaign that is queue for approval'], 403);
     }

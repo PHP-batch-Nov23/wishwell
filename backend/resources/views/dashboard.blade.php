@@ -10,9 +10,10 @@
     <style>
         /* Add your custom CSS styles here */
         .container {
-            
+
             margin-top: 170px;
-            text-align: center; /* Align contents center horizontally */
+            margin-left: 10px;
+            text-align: center;
             padding-left:15px;
             padding-right:15px;
         }
@@ -23,13 +24,13 @@
         }
     </style>
 </head>
-<body>
+<body style="text-align: center;">
 @if (session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
         </div>
     @endif
-    <div class="container">
+    <div >
         <h1>Campaigns</h1>
         <!-- <div class="table-responsive"> -->
         <table class="table table-bordered ">
@@ -93,33 +94,10 @@
         </table>
     </div>
     <!-- Bootstrap JS (optional) -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
 
 
 
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Users</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        /* Additional CSS styles if needed */
-    </style>
-</head>
-<body>
-@if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-    <div class="container">
+    <div>
         <h1>All Users</h1>
         <!-- <div class="table-responsive"> Make the table responsive -->
             <table class="table table-striped table-bordered">
@@ -180,27 +158,9 @@
         </div>
     </div>
     <!-- Bootstrap JS (optional) -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Donations</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Add your custom CSS styles here if needed -->
-    <style>
-        /* Add your custom CSS styles here */
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Donations</h1>
-        <!-- <div class="table-responsive"> -->
+    <div>
+        <h1 >Donations</h1>
             <table class="table table-bordered">
                 <thead class="thead-dark">
                     <tr>
@@ -231,7 +191,7 @@
             </table>
         </div>
     </div>
-    <!-- Bootstrap JS (optional) -->
+
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

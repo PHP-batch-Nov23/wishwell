@@ -17,23 +17,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
     Route::post('/updateUser',[App\Http\Controllers\AllUserController::class, 'update'])->middleware('checkUserRole');
 
-
-   
-
-
     Route::get('/getUsers',[App\Http\Controllers\AllUserController::class, 'index']);
-    
-
-    
+      
     // Route::put('/update/{id}',[App\Http\Controllers\AllUserController::class, 'update']);
     // Route::delete('/delete/{id}',[App\Http\Controllers\AllUserController::class, 'destroy']);
-
-
-
-
-
-
-
 
     Route::post('/createDonationEntry',[App\Http\Controllers\DonationController::class, 'store']);
 
@@ -68,10 +55,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
     Route::post('/campaign',[App\Http\Controllers\CampaignController::class, 'store'])->middleware('checkUserRole');
+    
     Route::get('/getAllActiveCampaigns',[App\Http\Controllers\CampaignController::class, 'activeCampaigns']);
+
     Route::post('/getAllCampaignsWithId',[App\Http\Controllers\CampaignController::class, 'getAllCampaignOfUserId'])->middleware('checkUserRole');
+
     Route::post('/campaign/update',[App\Http\Controllers\CampaignController::class, 'update']);
+
     Route::post('/campaign/donate',[App\Http\Controllers\CampaignController::class, 'donate']);
+
     Route::post('/campaign/destroy',[App\Http\Controllers\CampaignController::class, 'destroy'])->middleware('checkUserRole');
 
 

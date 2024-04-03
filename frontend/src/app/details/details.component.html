@@ -9,8 +9,9 @@
     <div class="left-half">
       <div class="campaign-description">
         <h2>{{ campaign.title }}</h2>
-        <p>{{ campaign.description }}</p>
-        <p>{{ campaign.current_amount }}</p>
+        <p>Campaign description : {{ campaign.description }}</p>
+        <p>Amount needed : {{ campaign.goal_amount }}</p>
+        <p>current amount : {{ campaign.current_amount }}</p>
         <p>Start Date: {{ campaign.start_date }}</p>
         <p>End Date: {{ campaign.end_date }}</p>
       </div>
@@ -43,9 +44,11 @@
       <div *ngIf="!(campaign.status==='active') || !getval()" class="target-completed">
 
           <h2>Not accepting any donation now</h2>
-      
-
+    
       </div>
+
+
+
     </div>
     
   </div>

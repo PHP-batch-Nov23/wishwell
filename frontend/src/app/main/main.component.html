@@ -7,11 +7,13 @@
   <!-- List of campaigns -->
   <div class="donation-cards">
     <div class="donation-card" *ngFor="let campaign of filteredCampaigns">
+      <img src="https://source.unsplash.com/random/900x700/?${{campaign.title}}" alt="Description of the image" />
       <h2>{{ campaign.title }}</h2>
-      <p>{{ campaign.description }}</p>
-      <p>Raised: ${{ campaign.current_amount }}</p>
-      <p>Goal: ${{ campaign.goal_amount }}</p>
+      <p class="desctext">{{ campaign.description }}</p>
+      <p>Raised: ₹ {{ campaign.current_amount }}</p>
+      <p>Goal: ₹ {{ campaign.goal_amount }}</p>
       <!-- Donate Now button -->
+
       <button (click)="goToDetailsPage(campaign.id)">Donate Now</button>
     </div>
   </div>

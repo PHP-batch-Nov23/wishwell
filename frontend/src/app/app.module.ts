@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule} from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -12,7 +12,8 @@ import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { DetailsComponent } from './details/details.component';
 import { ProfileComponent } from './profile/profile.component'; 
-import { NgToastModule } from 'ng-angular-popup';
+import { FooterComponent } from './footer/footer.component';
+import { ToastComponent } from './toast/toast.component';
 
 @NgModule({
 
@@ -25,14 +26,16 @@ import { NgToastModule } from 'ng-angular-popup';
     RegisterComponent,
     LoginComponent,
     DetailsComponent,
-    ProfileComponent
+    ProfileComponent,
+    FooterComponent,
+    ToastComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    NgToastModule
   ],
+
   providers: [
     provideClientHydration()
   ],
